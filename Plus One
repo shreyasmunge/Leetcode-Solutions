@@ -1,0 +1,8 @@
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        string_array=[str(num) for num in digits]                               #converting int to string as join function is applicable on string
+        joined_string="".join(string_array)                                     #using join function to convert list to a single number example {list=['1','2'] converted to 12}
+        joined_int=int(joined_string)                                           #converting single number to int as operations are done on same datatype
+        joined_int+=1
+        res = list(map(int, str(joined_int)))                                  #converting int single number to string so it can be iterable and making it to list
+        return res
