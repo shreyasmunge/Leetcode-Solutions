@@ -1,0 +1,15 @@
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        store={}
+        nums=[]
+        for j in range(0,len(nums2)):                 #insert array2 in dictionary with their number of repetations
+            if nums2[j] not in store:
+                store[nums2[j]]=1
+            else:
+                store[nums2[j]]+=1
+        for i in range(0, len(nums1)):               #iterate array1 
+            if nums1[i] in store:
+                if store[nums1[i]]!=0:               #if element of array1 in dict and dict count of that number is not zero 
+                    nums.append(nums1[i])                  #then add that element to new array
+                    store[nums1[i]]-=1                     #and reduce the count of that element in dict
+        return nums
