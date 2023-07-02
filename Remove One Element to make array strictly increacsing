@@ -1,0 +1,7 @@
+class Solution:
+    def canBeIncreasing(self, nums: List[int]) -> bool:
+        for i in range(len(nums)):
+            temp=nums[:i]+nums[i+1:]                            #temp is nums except one element each time
+            if temp==sorted(set(temp)):                         #if temp after removing one element is equal to sorted temp with no repetition
+                return True                                        of element
+        return False
