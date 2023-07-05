@@ -1,0 +1,11 @@
+class Solution:
+    def checkIfExist(self, arr: List[int]) -> bool:
+        n=len(arr)
+        i=0
+        while n>=2 and i!=n-1:                                    
+            for j in range(i+1, n):
+                if arr[i]==2*arr[j] or arr[i]==arr[j]/2:                 #if current element is double or half of pointer elemetn
+                    return True
+                    break
+            i+=1
+        return False
