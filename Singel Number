@@ -1,0 +1,11 @@
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        store={}
+        for i in range(0, len(nums)):
+            if nums[i] not in store:                               #store elements in dict with their count as values
+                store[nums[i]]=1
+            else:
+                store[nums[i]]+=1
+        for key,value in store.items():                           #if iterate in dict and check if value is 1
+            if value==1:
+                return key                                                 #if yes return key
