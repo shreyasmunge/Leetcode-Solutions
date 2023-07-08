@@ -1,0 +1,12 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        store={}                                                  #empty dict
+        for i in range(0,len(nums)):
+            if nums[i] not in store:                              #insert element in dict with their count
+                store[nums[i]]=1
+            else:
+                store[nums[i]]+=1
+        maj=len(nums)//2
+        for key,value in store.items():                            #iterat dict 
+            if value>maj:                                         
+                return key
