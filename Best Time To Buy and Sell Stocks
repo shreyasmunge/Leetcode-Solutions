@@ -1,0 +1,15 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        i=0
+        j=1
+        max_price=0
+        while j<len(prices):
+            profit=prices[j]-prices[i]
+            if prices[i]<prices[j]:                                #if stock sell is>than stock buy
+                max_price=max(profit,max_price)                    #max is chosen from the current profit and max price
+            else:
+                i=j                                                          #if i and j is incremented
+            j+=1
+        return max_price
+
+       
