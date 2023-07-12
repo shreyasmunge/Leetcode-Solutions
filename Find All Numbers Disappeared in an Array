@@ -1,0 +1,12 @@
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        return list(set(range(1,len(nums)+1))-set(nums))                              #set-used to remove duplicate from list and list remain unordered
+                                                                                      #list-used to convert to list
+                                                                      
+
+        
+
+       
+
+
+       
