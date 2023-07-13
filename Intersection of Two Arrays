@@ -1,0 +1,8 @@
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        new_list=[]                                                      #create empty list to store intersection element
+        nums=set(nums1)                                                  #set removes all duplicate element form list1
+        for num in nums:                                                 #iterate through list1
+            if num in nums2:
+                new_list.append(num)                                        #if element in list2 also then append it to empty list
+        return new_list
