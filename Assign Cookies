@@ -1,0 +1,22 @@
+#Read the question carefully, there is only one main constraint i.e. the size of the cookie should be greater than or equal to the greed of a child
+#time complexity is 0(n) as only one loop
+
+class Solution:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        i=0
+        j=0                                                   #use two pointers for two arrays and a count variable to keep track
+        count=0
+        s.sort()                                              #sort two arrays
+        g.sort()
+        while i<len(g) and j<len(s):                           #loop until one of pointer is at end
+            if s[j]>=g[i]:                                      #main constraint
+                count+=1
+                i+=1                                          #incremant 
+                j+=1
+            else:                                             #else move only the pointer of the greed list to iterate all children
+                j+=1
+        return count
+            
+            
+         
+        
