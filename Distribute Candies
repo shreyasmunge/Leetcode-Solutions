@@ -1,0 +1,15 @@
+class Solution:
+    def distributeCandies(self, candyType: List[int]) -> int:
+        n=len(candyType)                                              
+        maxi=n//2
+        store={}
+        for i in range(n):                                                   #iterate array and add it to dict by count
+            if candyType[i] not in store:
+                store[candyType[i]]=1
+            else:
+                store[candyType[i]]+=1
+        variety=len(store)
+        if variety<=maxi:                                                   #the number of keys in dict represents different types of candies
+            return variety                                                  #but limit to eat is half
+        else:                                                               #so if different variety <=limit,then return variety
+            return maxi                                                     #else return limit
