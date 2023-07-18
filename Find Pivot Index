@@ -1,0 +1,11 @@
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        total=sum(nums)
+        left=0
+        for i in range(len(nums)):
+            if (total-nums[i])-left==left:                                    #if (total-current element) - the sum of elements left to current==the sum of elements left to current
+                return i                                                     #example (12-2)-5==5
+            else:
+                left=left+nums[i]                                             #else add  the current element to the left sum 
+        return -1
+        
