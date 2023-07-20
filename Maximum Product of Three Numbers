@@ -1,0 +1,17 @@
+class Solution:
+    def maximumProduct(self, nums: List[int]) -> int:
+        nums.sort()                                                           #sort the array
+        n=len(nums)
+        if all(ele>0 for ele in nums):                                        #used all() function to check if all elements are positive or negative
+            return nums[n-1]*nums[n-2]*nums[n-3]                              #either they are positive or negative return products of the last three element
+        elif all(ele<0 for ele in nums):
+            return nums[n-3]*nums[n-2]*nums[n-1]
+        else:
+            prob1=nums[0]*nums[1]*nums[n-1]                                      #if has both then there are two probabilities to get max product
+            prob2=nums[n-1]*nums[n-2]*nums[n-3]                                  #prob1 is if negative element have greater magnitude then multiplying
+            if prob1>prob2:                                                       #    -two negative gives positive then this positive product multiplies with
+                return prob1                                                      #    - largest positive number
+            else:
+                return prob2                                                     #prob2 is if multiply all higher positive number
+
+        
