@@ -1,0 +1,28 @@
+class Solution:
+    def minNumber(self, nums1: List[int], nums2: List[int]) -> int:
+        nums1.sort()
+        nums2.sort()
+        a=nums1[0]                                         #sort two list and store smallest element in two variables(here a,b)
+        b=nums2[0]
+        new=[]                                             #create two new list (here new and final)
+        final=[]
+        count=0
+        for i in range(0,len(nums1)):                      #two conditions in this problem
+            if nums1[i] in nums2:                                #--1:if there is common element in both list,the smallest common element selected using a list(here new)
+                new.append(nums1[i])                                      #NOTE--in the above condition also if there are more than one common, select the smallest among
+                new.sort()                                                #if no common then ,list index out of range is shown -(to avoid this use a variable to look it is empty or not(here count variable))
+                res1=new[0]                                               #if list is not empty store that value in a new list(here final)
+                count+=1                                         #--2:if no common , then look for smallest among two given list(here a or b)
+        if count>=1:                                                       #whichever is smaller multipy it with 10 and add other with their product
+            final.append(res1)                                             #store result in final list
+        if a<b:
+            res2=(a*10)+b
+            final.append(res2)
+        else:
+            res3=(b*10)+a
+            final.append(res3)
+        final.sort()                                      #sort the final list 
+        return final[0]                                   #return smallest element
+            
+      
+          
