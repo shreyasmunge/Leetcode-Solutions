@@ -1,0 +1,10 @@
+class Solution:
+    def sumOfSquares(self, nums: List[int]) -> int:
+        n=len(nums)
+        total=0
+        for i in range(0,n):
+            mod=n%(i+1)
+            if mod==0:
+                square=nums[i]*nums[i]
+                total+=square
+        return total
