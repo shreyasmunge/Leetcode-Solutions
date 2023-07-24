@@ -1,0 +1,12 @@
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        actual_total=0
+        for i in range(1,len(nums)+1):
+            actual_total+=i
+        given_total=sum(set(nums))
+        missing=actual_total-given_total
+        remove=sum(nums)-sum(set(nums))
+        return [remove,missing]
+
+
+           
