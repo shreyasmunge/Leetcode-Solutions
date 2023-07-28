@@ -1,0 +1,19 @@
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        n = len(cost)
+        new= [1]*n                                            (create a array of size n)
+        new[0] = cost[0]                                      (insert first two elements of given array in new array)
+        new[1] = cost[1]
+        for i in range(2,n):                                  (iterate form 3rd element)
+            new[i]=min(new[i-1],new[i-2])+cost[i]              (next element in new array is which ever is smaller among i-1 or i-2+cost[i])
+        return min(new[n-1],new[n-2])                         (return min form last or second last form new)
+        
+
+
+        
+
+        
+
+    
+          
+        
