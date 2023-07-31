@@ -1,0 +1,11 @@
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        array_even=[]                                     #create two empty arrays (one stores even numbers other for odd)
+        array_odd=[]
+        for i in range(len(nums)):                        #iterate through given array
+            if nums[i]%2==0:                              #if current number is even then append it to array even
+                array_even.append(nums[i])
+            else:
+                array_odd.append(nums[i])                 #else append it odd array
+        array_final=array_even+array_odd                  #add two arrays to final array
+        return array_final                                 #return final array                            
