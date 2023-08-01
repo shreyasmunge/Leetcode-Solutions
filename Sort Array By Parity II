@@ -1,0 +1,21 @@
+class Solution:
+    def sortArrayByParityII(self, nums: List[int]) -> List[int]:
+        even=[]
+        odd=[]                                        #create two empty array to store odd and even numbers seperately
+        final=[]
+        even_count,odd_count=0,0                      #create two pointers 
+        for i in range(len(nums)):
+            if nums[i]%2==0:
+                even.append(nums[i])                 #append nums in new list based on odd or even 
+            else:
+                odd.append(nums[i])
+        for j in range(len(nums)):                   #iterate same given list
+            if j%2==0:
+                nums[j]=even[even_count]              #if the  index is even then replace the present number with a number form even list
+                even_count+=1                            #and increment the pointer of even list so the next time index is even other number from even list should be considered
+            else:
+                nums[j]=odd[odd_count]               #else replace odd list number and increment odd list pointer
+                odd_count+=1
+        return nums
+        
+    
