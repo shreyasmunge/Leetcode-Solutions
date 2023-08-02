@@ -1,0 +1,16 @@
+class Solution:
+    def duplicateZeros(self, arr: List[int]) -> None:
+        """
+        Do not return anything, modify arr in-place instead.
+        """
+        i=0
+        n=len(arr)
+        while i<n:                              #iterate a pointer using a while loop
+            if arr[i]==0:                       #if element is 0
+                arr.insert(i+1,0)               #replace nexe element as 0
+                arr.pop()                       #use pop to remove last element so size of array is same
+                i+=2                            #increment the pointer with 2 as next element is replaced as zero
+            else:                               #else increment by 1
+                i+=1
+        return arr                              #NOTE: the insert function also shift the elements towards right
+       
