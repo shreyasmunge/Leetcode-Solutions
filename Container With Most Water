@@ -1,0 +1,18 @@
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        area,max_area=0,0                         #two variables to keep track on max area
+        n=len(height)
+        i,j=0,n-1                                 #assigning two pointers
+        while i<j:
+            if height[i]<=height[j]:                     #if height of left <right
+                breath=j-i                               #breath is right-left index
+                area=height[i]*breath                    #area=lenght*breath(NOTE:lenght is smallest among two current heights)
+                max_area=max(area,max_area)              #update max (which ever is greater)
+                i+=1                                     #increment index(as both pointers move inward the breath decreses so to get max area height should increase)
+            else:
+                breath=j-i                               
+                area=height[j]*breath
+                max_area=max(area,max_area)
+                j-=1                                  #else same above steps only decrement j
+        return max_area
+                
