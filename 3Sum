@@ -1,0 +1,26 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        final=[]
+        for i in range(len(nums)):                            #fixed element
+            if i>0 and nums[i-1]==nums[i]:                    
+                continue
+            j=i+1
+            k=len(nums)-1                                     #two pointers
+            while j<k:
+                s=nums[i]+nums[j]+nums[k]
+                if s>0:                                      #if sum is greater than target decrement right pointer
+                    k-=1
+                elif s<0:                                        #if less increment left pointer
+                    j+=1
+                else:
+                    final.append([nums[i],nums[j],nums[k]])              #if equal append and increment left pointer
+                    j+=1
+                    while nums[j-1]==nums[j] and j<k:                        #if left pointer and its previous is same then increment left pointer
+                        j+=1
+        return final
+
+       
+
+
+            
