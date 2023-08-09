@@ -1,0 +1,10 @@
+class Solution:
+    def restoreString(self, s: str, indices: List[int]) -> str:
+        n=len(indices)
+        final=""                                     #create an empty string
+        for i in range(n):                               #iterate through array which has index as elements
+            final+=s[indices.index(i)]                   #get the element form letter array using index 
+        return final
+
+
+        
