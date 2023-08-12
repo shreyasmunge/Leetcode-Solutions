@@ -1,0 +1,11 @@
+class Solution:
+    def average(self, salary: List[int]) -> float:
+        maximum=max(salary)                          #find max element
+        minimum=min(salary)                             #fine min element
+        total,count=0,0                                 #assign two variables 
+        for i in range(len(salary)):
+            if salary[i]!=maximum and salary[i]!=minimum:            #if current element is not a max or min
+                total+=salary[i]                                        #add to total
+                count+=1                                                  #increment count
+        return total/count
+           
