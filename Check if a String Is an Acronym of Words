@@ -1,0 +1,12 @@
+class Solution:
+    def isAcronym(self, words: List[str], s: str) -> bool:
+        
+        count=0
+        for i in words:
+            if len(words)!=len(s):
+                return False
+            elif i[0]==s[count]:
+                count+=1
+            else:
+                return False
+        return True
