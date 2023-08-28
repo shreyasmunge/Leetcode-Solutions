@@ -1,0 +1,9 @@
+class Solution:
+    def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
+        zipped=zip(heights,names)
+        lis=[]
+        for i,j in sorted(zipped):
+            lis.append(j)
+        return lis[::-1]
+       
+            
