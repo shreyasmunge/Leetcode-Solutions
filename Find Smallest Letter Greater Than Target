@@ -1,0 +1,13 @@
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        i=0
+        while i<len(letters):
+            if letters[i]>target:
+                return letters[i]
+            elif target=="z" or i==len(letters)-1:
+                return letters[0]
+            else:
+                i+=1
+       
+
+        
