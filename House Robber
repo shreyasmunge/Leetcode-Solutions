@@ -1,0 +1,11 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        i,j=0,0
+        for num in nums:
+            temp=max(num+i,j)
+            i=j
+            j=temp
+        return j
+       
+
+        
