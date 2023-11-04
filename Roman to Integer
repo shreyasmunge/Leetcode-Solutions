@@ -1,0 +1,13 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        total=0
+        store={"I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000}                    #create a dictornary to store roman to number pairs
+        for i in range(len(s)):
+            if i+1<len(s) and store[s[i]]<store[s[i+1]]:                              #if current letter is less than next letter and i+1 is less than lenght of s then reduce it from total
+                total-=store[s[i]]
+            else:
+                total+=store[s[i]]                                                    #else add
+        return total
+
+
+        
