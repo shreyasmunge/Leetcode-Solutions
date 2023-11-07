@@ -1,0 +1,12 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack=[]
+        store={'(':')','{':'}','[':']'}
+        for i in s:
+            if i in store:
+                stack.append(i)
+            elif len(stack)==0 or i!=store[stack.pop()]:
+                return False
+        return len(stack)==0
+
+        
