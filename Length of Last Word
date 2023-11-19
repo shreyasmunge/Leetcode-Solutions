@@ -1,0 +1,9 @@
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        lwl = 0
+        for i in range(len(s)-1,-1,-1):
+            if lwl and s[i] == ' ':
+                break
+            if s[i] != ' ':
+                lwl+=1
+        return lwl
