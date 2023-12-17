@@ -1,0 +1,18 @@
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+        count_lower=0
+        count_upper=0
+        j=0
+        for i in range(len(word)):
+            if word[i]==word[i].lower():
+                count_lower+=1
+            if word[i]==word[i].upper():
+                count_upper+=1
+        if word[j]==word[j].upper() and count_lower==len(word)-1 or count_lower==len(word) or count_upper==len(word):
+            return True
+        else:
+            return False
+
+
+
+       
