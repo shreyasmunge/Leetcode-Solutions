@@ -1,0 +1,17 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def gen_paren(open,close,s):
+            if len(s)==n*2:
+                lis.append(s)
+            if open<n:
+                gen_paren(open+1,close,s+'(')
+            if open>close:
+            
+                gen_paren(open,close+1,s+')')
+        lis=[]
+    
+        gen_paren(0,0,'')
+        return lis
+
+        
+        
