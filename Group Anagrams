@@ -1,0 +1,13 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        map={}
+        lis=[]
+        for i in strs:
+            ele=str(sorted(i))
+            if ele not in map:
+                map[ele]=[i]
+            else:
+                map[ele]+=[i]
+        for key in map:
+            lis.append(map[key])
+        return lis
