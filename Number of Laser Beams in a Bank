@@ -1,0 +1,17 @@
+class Solution:
+    def numberOfBeams(self, bank: List[str]) -> int:
+        i=0
+        j=1
+        lis=[]
+        while j<len(bank):
+            if bank[j].count('1')==0:
+                j+=1
+            else:
+                upper_laser=bank[i].count('1')
+                lower_laser=bank[j].count('1')
+                lis.append(upper_laser*lower_laser)
+                i=j
+                j+=1
+        return int(sum(lis))
+
+        
