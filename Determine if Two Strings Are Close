@@ -1,0 +1,29 @@
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if len(word1)!=len(word2):
+            return False
+        i=0
+        map1={}
+        map2={}
+        lis1=[]
+        lis2=[]
+        for j in word1:
+            if j not in word2:
+                return False
+        while i<len(word1):
+            if word1[i] not in map1:
+                map1[word1[i]]=1
+            else:
+                map1[word1[i]]+=1
+            if word2[i] not in map2:
+                map2[word2[i]]=1
+            else:
+                map2[word2[i]]+=1
+            i+=1
+        for value in map1.values():
+            lis1.append(value)
+        for value in map2.values():
+            lis2.append(value)
+        lis1.sort()
+        lis2.sort()
+        return lis1==lis2
