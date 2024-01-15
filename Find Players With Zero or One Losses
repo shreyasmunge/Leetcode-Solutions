@@ -1,0 +1,31 @@
+class Solution:
+    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
+        i=0
+        j=1
+        map={}
+        lis1=[]
+        lis2=[]
+        for match in matches:         #use hashmap to store number of matches won and lost by player
+            if match[i] not in map:   #represent victory by 1
+                map[match[i]]=[1]
+            else:
+                map[match[i]].append(1)
+            if match[j] not in map:   #represen defeat by 0
+                map[match[j]]=[0]
+            else:
+                map[match[j]].append(0)
+            i=0
+            j=1
+        for key,value in map.items(): #if a player have no defeat then add it to list1
+            if 0 not in value:
+                lis1.append(key)
+            if value.count(0)==1:     #if a player have one defeat add to list2
+                lis2.append(key)
+        lis1.sort()
+        lis2.sort()
+        return [lis1,lis2]
+       
+
+            
+
+        
