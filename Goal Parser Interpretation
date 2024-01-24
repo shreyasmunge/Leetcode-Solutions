@@ -1,0 +1,18 @@
+class Solution:
+    def interpret(self, command: str) -> str:
+        map={
+            'G':'G',
+            '()':'o',
+            '(al)':'al'
+        
+        }
+        res=''
+        st=''
+        for ele in command:
+            st+=ele
+            if st in map:
+                res+=map[st]
+                st=''
+        return res
+            
+        
