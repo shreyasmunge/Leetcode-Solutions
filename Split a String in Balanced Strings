@@ -1,0 +1,15 @@
+class Solution:
+    def balancedStringSplit(self, s: str) -> int:
+        total=0
+        r=l=i=0
+        while i<len(s):
+            if s[i]=='R':
+                r+=1
+            else:
+                l+=1
+            if r==l:
+                total+=1
+                r=l=0
+            i+=1
+        return total
+        
