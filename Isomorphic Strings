@@ -1,0 +1,18 @@
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        map1={}
+        map2={}
+        for i,j in zip(s,t):
+            if i in map1:
+                if map1[i]!=j:
+                    return False
+            else:
+                map1[i]=j
+            if j in map2:
+                if map2[j]!=i:
+                    return False
+            else: 
+                map2[j]=i
+        return True
+        
+        
