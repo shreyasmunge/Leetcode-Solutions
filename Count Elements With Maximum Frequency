@@ -1,0 +1,19 @@
+class Solution:
+    def maxFrequencyElements(self, nums: List[int]) -> int:
+        hmap = {}
+        lis = []
+        for num in nums:
+            if num not in hmap:
+                hmap[num]=1
+            else:
+                hmap[num]+=1
+        for key in hmap:
+            lis.append(hmap[key])
+        maxi = max(lis)
+        res=0
+        for ele in lis:
+            if ele==maxi:
+                res+=ele
+        return res
+        
+        
