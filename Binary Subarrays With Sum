@@ -1,0 +1,15 @@
+class Solution:
+    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        cur = 0
+        count = {0 : 1}
+        total = 0
+        for num in nums:
+            cur+=num
+            if cur - goal in count:
+                total+=count[cur-goal]
+            count[cur] = count.get(cur, 0 )+1
+        return total
+
+        
+        
+            
