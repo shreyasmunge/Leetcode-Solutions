@@ -1,0 +1,19 @@
+from collections import deque
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        dic = {}
+        lis = [-1]*len(nums1)
+        stack = deque()
+        for i in range(len(nums1)):
+            dic[nums1[i]]=i
+        for j in range(len(nums2)):
+            cur = nums2[j]
+            while stack and cur>stack[-1]:
+                ele = stack.pop()
+                index = dic[ele]
+                lis[index]=cur
+            if cur in dic:
+                stack.append(cur)
+        return lis
+
+        
