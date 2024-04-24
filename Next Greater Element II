@@ -1,0 +1,17 @@
+from collections import deque
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        stack = deque()
+        arr = [-1]*len(nums)
+        nums1 = nums+nums
+        n = len(nums)
+        for i in range(len(nums1)):
+            cur = nums1[i]
+            while stack and cur>nums1[stack[-1]]:
+                ele = stack.pop()
+                arr[ele%n] = cur
+            stack.append(i)
+        return arr
+
+
+        
