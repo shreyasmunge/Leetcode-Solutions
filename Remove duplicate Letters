@@ -1,0 +1,21 @@
+from collections import deque
+class Solution:
+    def removeDuplicateLetters(self, s: str) -> str: 
+        stack = deque()
+        seen = set()
+        hashmap = {}
+        for i in range(len(s)):
+            hashmap[s[i]] = i
+        for i in range(len(s)):
+            if s[i] not in seen:
+                while stack and s[i]<stack[-1] and i < hashmap.get(stack[-1]):
+                    seen.remove(stack.pop())
+                seen.add(s[i])
+                stack.append(s[i])
+        return ''.join(stack)
+        
+        
+
+
+        
+        
