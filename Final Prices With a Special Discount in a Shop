@@ -1,0 +1,15 @@
+from collections import deque
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        stack = deque()
+        arr = prices
+        for i in range(len(prices)):
+            price = prices[i]
+            while stack and prices[stack[-1]]>=price and stack[-1]<i:
+                index = stack.pop()
+                arr[index] = prices[index]-price
+            stack.append(i)
+        return arr
+
+
+        
