@@ -1,0 +1,20 @@
+from collections import deque
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        stack = deque()
+        i = nums[0]
+        for k in nums:
+            while stack and k >=stack[-1][0]:
+                stack.pop()
+            if stack and k>stack[-1][1]:
+                return True
+            stack.append([k,i])
+            i = min(i,k)
+        return False
+
+            
+
+
+
+
+        
