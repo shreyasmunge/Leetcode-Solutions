@@ -1,0 +1,14 @@
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        array = []
+        nums.sort()
+        def backtracking(index,subarray):
+            if len(nums) == index :
+                if subarray not in array:
+                    array.append(subarray)
+                return
+            backtracking(index+1,subarray)
+            backtracking(index+1,subarray+[nums[index]])
+        backtracking(0,[])
+        return array
+        
