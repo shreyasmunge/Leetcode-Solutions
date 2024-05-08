@@ -1,0 +1,12 @@
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        array = []
+        def backtracking(index,subarray):
+            if len(nums) == index:    #base case 
+                array.append(subarray)
+                return
+            backtracking(index+1,subarray+[nums[index]])  #to include present element
+            backtracking(index+1,subarray)                #not to include 
+        backtracking(0,[])
+        return array
+        
