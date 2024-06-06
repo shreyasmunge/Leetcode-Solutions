@@ -1,0 +1,17 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        visited_index = set()
+        res = []
+        self.helper(visited_index,[],nums,res)
+        return res
+    def helper(self,visited_index,subset,nums,res):
+        if len(subset)==len(nums):
+            res.append(subset)
+
+        for i in range(len(nums)):
+            if i not in visited_index:
+                visited_index.add(i)
+                self.helper(visited_index,subset+[nums[i]],nums,res)
+                visited_index.remove(i)
+
+        
