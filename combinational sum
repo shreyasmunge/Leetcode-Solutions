@@ -1,3 +1,5 @@
+SOLUTION 1 - 
+
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         ans=[]
@@ -12,5 +14,27 @@ class Solution:
                 dfs(cur+[candidates[i]],cur_sum+candidates[i],i)
         dfs([],0,0)
         return ans
+
+
+
+
+SOLUTION 2 - 
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        def backtracking(i,lis,total):
+            if total == target:
+                res.append(lis[:])
+                return
+            if i>=len(candidates) or total>target:
+                return 
+            lis.append(candidates[i])                 
+            backtracking(i,lis,total+candidates[i])           
+            lis.pop()
+            backtracking(i+1,lis,total)
+        backtracking(0,[],0)
+        return res
+        
 
 
