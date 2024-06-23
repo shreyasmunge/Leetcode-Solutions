@@ -1,0 +1,23 @@
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        memo = {}
+
+        def backtracking(current_sum):
+            if current_sum == target:
+                return 1
+            if current_sum > target:
+                return 0
+            if current_sum in memo:
+                return memo[current_sum]
+
+            result = 0
+            for num in nums:
+                result += backtracking(current_sum + num)
+
+            memo[current_sum] = result
+            return result
+
+        return backtracking(0)
+
+                           
+             
