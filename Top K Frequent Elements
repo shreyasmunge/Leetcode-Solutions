@@ -11,3 +11,25 @@ class Solution:
         return result
         
         
+#using bucket Sort 
+
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        map = {}
+        res = []
+        freq = [[] for i in range(len(nums)+1)]
+        for i in range(len(nums)):
+            if nums[i] not in map:
+                map[nums[i]] = 1
+            else:
+                map[nums[i]]+=1
+        for key,value in map.items():
+            freq[value].append(key)
+        for i in range(len(freq)-1,0,-1):
+            for ele in freq[i]:
+                res.append(ele)
+                if len(res) ==k:
+                    return res
+        
+        
