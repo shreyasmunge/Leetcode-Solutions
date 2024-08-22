@@ -1,0 +1,39 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def getDirections(self, root: Optional[TreeNode], startValue: int, destValue: int) -> str:
+        def lca(node):
+            if not node:
+                return None
+            if node.val == startValue or node.val ==destValue:
+                return node
+            left = lca(node.left)
+            right = lca(node.right)
+            if left and right:
+                return node
+            return left if left else right
+        def dfs(node,target,path):
+            if not node:
+                return False
+            if node.val == target:
+                return True
+            if node.left and dfs(node.left, target, path):
+                path.append('L')
+                return True
+            if node.right and dfs(node.right, target, path):
+                path.append('R')
+                return True
+            return False
+        common_lca = lca(root)
+        start = []
+        end = []
+        dfs(common_lca,startValue,start)
+        dfs(common_lca,destValue,end)
+        start = ['U'] * len(start)
+        end.reverse()
+        return ''.join(start) + ''.join(end)
+            
