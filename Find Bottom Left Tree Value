@@ -14,16 +14,16 @@ class Solution:
             queue = deque()
             queue.append(node)
             while queue:
-                level_size = len(queue)
-                cur_array = []
-                for num in range(level_size):
+                level = len(queue)
+                lis = []
+                for num in range(level):
                     ele = queue.popleft()
-                    cur_array.append(ele.val)
+                    lis.append(ele.val)
                     if ele.left:
                         queue.append(ele.left)
                     if ele.right:
                         queue.append(ele.right)
-                res.append(cur_array)
+                res.append(lis)
             return res[-1][0]
         return bfs(root)
 
