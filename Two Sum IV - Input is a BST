@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+        def inorder(node,lis):
+            if not node:
+                return
+            inorder(node.left,lis)
+            lis.append(node.val)
+            inorder(node.right,lis)
+            return lis
+        lis = inorder(root,[])                 #inorder of bst gives a sorted array
+        i,j = 0,len(lis)-1
+        while i<j:                             #apply two pointer approach to find the target
+            if lis[i]+lis[j]==k:
+                return True
+            elif lis[i]+lis[j]<k:
+                i+=1
+            else:
+                j-=1
+        return False
+        
