@@ -1,0 +1,40 @@
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        i,j = 0,len(height)-1
+        maxLeft,maxRight=height[i],height[j]
+        res = 0
+        while i<j:
+            if maxLeft<maxRight:
+                i+=1
+                maxLeft = max(maxLeft,height[i])
+                res+=maxLeft-height[i]
+            else:
+                j-=1
+                maxRight = max(maxRight,height[j])
+                res+=maxRight-height[j]
+        return res
+
+
+Solution 2:
+
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        maxLeft = []
+        maxRight = []
+        cur,water = 0,0
+        for i in range(len(height)):         #calculate max height to left of each element
+            if height[i]>cur:
+                cur = height[i]
+            maxLeft.append(cur)
+        cur = 0
+        for j in range(len(height)-1,-1,-1):     #calculate max height to right of each element
+            if height[j]>cur:
+                cur = height[j]
+            maxRight.append(cur)
+        maxRight = maxRight[::-1]              #reverse to get to correct order
+        for i in range(len(height)):
+            water+=min(maxLeft[i],maxRight[i])-height[i]       #for a current place the water storeing capacity minimum of maxLeft and maxRgiht of that index - height of that index
+        return water
+
+        
