@@ -1,3 +1,63 @@
+Solution 1:(optimized) [dutch national flag algo]
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        low,mid,high=0,0,len(nums)-1
+        while mid<=high:
+            if nums[mid] ==0:
+                nums[low],nums[mid]=nums[mid],nums[low]
+                low+=1
+                mid+=1
+            elif nums[mid]==1:
+                mid+=1
+            else:
+                nums[high],nums[mid]=nums[mid],nums[high]
+                high-=1
+        return nums
+
+
+
+
+Solution 2:(owm)
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if len(nums)==1:
+            return nums
+        freq = {}
+        for i in range(len(nums)):
+            if nums[i] not in freq:
+                freq[nums[i]]=1
+            else:
+                freq[nums[i]]+=1
+        lis = []
+        for i in freq.keys():
+            if i not in lis:
+                lis.append(i)
+        lis.sort()
+        i=j=0
+        while i<len(lis):
+            if freq[lis[i]]!=0:
+                nums[j]=lis[i]
+                j+=1
+                freq[lis[i]]-=1
+            else:
+                i+=1
+        return nums
+
+
+
+
+
+
+
+
+
+Solution 3:
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
