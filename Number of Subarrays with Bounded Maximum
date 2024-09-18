@@ -1,0 +1,12 @@
+class Solution:
+    def numSubarrayBoundedMax(self, nums: List[int], left: int, right: int) -> int:
+        def count(bound):     #sliding window
+            total=cur=0
+            for num in nums:
+                if num<=bound:
+                    cur+=1         #tracks the current subarray
+                else:
+                    cur =0
+                total+=cur          #total subarray
+            return total
+        return count(right)-count(left-1) #count(right) return subarray with max ele<=right and coutn(left-1) returns subarray with max<=left.
