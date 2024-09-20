@@ -1,0 +1,18 @@
+class Solution:
+    def rotateTheBox(self, box: List[List[str]]) -> List[List[str]]:
+        for i in range(len(box)):
+            empty=len(box[i])-1 #point empty space at last of box[0][0]
+            for j in range(len(box[i])-1,-1,-1):
+                if box[i][j]=='#':  #if a stone
+                    box[i][j],box[i][empty]=box[i][empty],box[i][j] #swap with empty space
+                    empty-=1 #decrement empty
+                elif box[i][j]=='*': #if obstacle the assign empty prior to it
+                    empty=j-1
+                
+        res = []
+        for col in range(len(box[0])):  
+            new_row = []
+            for row in range(len(box) - 1, -1, -1): 
+                new_row.append(box[row][col])
+            res.append(new_row)  
+        return res
