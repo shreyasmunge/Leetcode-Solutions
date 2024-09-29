@@ -1,0 +1,23 @@
+class Solution:
+    def findLongestWord(self, s: str, dictionary: List[str]) -> str:
+        longest = 0
+        lis=[]
+        for ele in dictionary:
+            i,j=0,0
+            while i<len(ele) and j<len(s):     #append those strings which are present in s and dictionary
+                if ele[i]==s[j]:
+                    i+=1
+                    j+=1
+                else:
+                    j+=1
+            if i==len(ele):
+                lis.append(ele)
+        lis.sort()                    #sort by alphabetic order
+        lis.sort(key=len,reverse=True)      #sort by len of each string
+        if lis: 
+            return lis[0]                   #if any exists return else ''
+        else:
+            return ''
+        
+            
+        
