@@ -1,5 +1,39 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        count=0
+        i,j=0,0
+        n=len(s)
+        longest=0
+        while j<n:
+            if s[j] not in s[i:j]:         #expand until no dup
+                count+=1
+                j+=1
+            else:        #shrink until dup removed
+                i+=1
+                count-=1
+            
+            longest=max(longest,count)
+        return longest
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
         count=set()
         l=0
         res=0
