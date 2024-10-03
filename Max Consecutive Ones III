@@ -1,0 +1,16 @@
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        l=r=maxlength=zero=0
+        n=len(nums)
+        while r<n:
+            if nums[r]==0:           #keep track on zeros in current window
+                zero+=1
+            while zero>k:             #shrink the window if zeros limit exceeds
+                if nums[l]==0:
+                    zero-=1
+                l+=1
+            if zero<=k:                #else count maxlen
+                curlen=r-l+1
+                maxlength=max(maxlength,curlen)
+            r+=1                       #expand window
+        return maxlength
