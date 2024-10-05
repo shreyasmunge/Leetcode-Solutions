@@ -1,0 +1,12 @@
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        j=count=0
+        n=len(s)
+        lastseen = {'a':-1,'b':-1,'c':-1}
+        while j<n:
+            lastseen[s[j]]=j       #keep track on last seen ele
+            if lastseen['a']!=-1 and lastseen['b']!=-1 and lastseen['c']!=-1: #f all three present
+                count+=min(lastseen['a'],lastseen['b'],lastseen['c'])+1    #the current window from min of index to j is valid substring + all substrings before if 
+            j+=1
+        return count
+        
