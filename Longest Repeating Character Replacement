@@ -1,0 +1,18 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l=r=maxlen=maxfreq=0
+        n=len(s)
+        freq={}
+        while r<n:
+            if s[r] not in freq:
+                freq[s[r]]=1
+            else:
+                freq[s[r]]+=1
+            maxfreq=max(maxfreq,freq[s[r]]) #keep track of most freq char in window
+            changes=(r-l+1)-maxfreq         #it is number of char need to change 
+            if changes>k:                   #it more than k
+                freq[s[l]]-=1               #shrink 
+                l+=1
+            maxlen=max(maxlen,r-l+1)        
+            r+=1
+        return maxlen
