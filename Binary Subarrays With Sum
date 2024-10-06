@@ -1,5 +1,25 @@
 class Solution:
     def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        def subarray(nums,goal):
+            l=r=curSum=count=0
+            n=len(nums)
+            if goal<0:
+                return 0
+            while r<n:
+                curSum+=nums[r]
+                while curSum>goal :
+                    curSum-=nums[l]
+                    l+=1
+                count+=(r-l+1)
+                r+=1
+            return count
+        total=subarray(nums,goal)
+        remove=subarray(nums,goal-1)
+        return total-remove
+
+
+class Solution:
+    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
         cur = 0
         count = {0 : 1}
         total = 0
