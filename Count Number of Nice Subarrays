@@ -1,0 +1,20 @@
+class Solution:
+    def numberOfSubarrays(self, nums: List[int], k: int) -> int:
+        def niceSubarray(nums,k):
+            l=r=curOdd=count=0
+            n=len(nums)
+            while r<n:
+                if nums[r]%2!=0:                #keep track on odd count
+                    curOdd+=1
+                while curOdd>k:                 #if >k shrink
+                    if nums[l]%2!=0:
+                        curOdd-=1
+                    l+=1
+                count+=(r-l+1)                  #else count all subarray <=k
+                r+=1
+            return count
+        sub1=niceSubarray(nums,k)               #all subarray wiht sum<= k
+        sub2=niceSubarray(nums,k-1)             #all subarray wiht sum<=k-1
+        return sub1 - sub2
+        
+        
