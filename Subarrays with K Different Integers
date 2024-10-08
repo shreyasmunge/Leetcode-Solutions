@@ -1,0 +1,24 @@
+class Solution:
+    def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
+        def goodArrays(nums,k):
+            l=r=count=unique=0
+            n=len(nums)
+            freq={}
+            while r<n:
+                if nums[r] not in freq:        #keep track on freq of num
+                    freq[nums[r]]=1
+                else:
+                    freq[nums[r]]+=1
+                while len(freq)>k:             #if unique no.>k shrink it
+                    freq[nums[l]]-=1
+                    if freq[nums[l]]==0:
+                        del freq[nums[l]]
+                    l+=1
+                count+=r-l+1                  #count all subarray whiel unique no.<=k
+                r+=1
+            return count
+        subarray1=goodArrays(nums,k)         #count all subarray wiht unique no.<=k
+        subarray2=goodArrays(nums,k-1)       #count all subarray wiht unique no.<=k-1
+        return subarray1-subarray2           #give all subarray with unique no.==k
+        
+        
