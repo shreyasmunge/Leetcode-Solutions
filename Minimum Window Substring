@@ -1,0 +1,36 @@
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if len(t)>len(s):
+            return ""
+        freq={}
+        for char in t:
+            if char not in freq:
+                freq[char]=1
+            else:
+                freq[char]+=1
+        l=r=count=0
+        minlen=10**9
+        startIndex=-1
+        n=len(s)
+        while r<n:
+            if s[r] in freq:
+                freq[s[r]]-=1
+                if freq[s[r]]>=0:
+                    count+=1
+            while count==len(t):
+                if (r-l+1)<minlen:
+                    minlen=(r-l+1)
+                    startIndex=l
+                if s[l] in freq:
+                    freq[s[l]]+=1
+                    if freq[s[l]]>0:
+                        count-=1
+                l+=1
+            r+=1
+        if startIndex==-1:
+            return ""
+        else:
+            return s[startIndex:startIndex+minlen]
+                
+
+         
