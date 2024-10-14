@@ -1,0 +1,47 @@
+from collections import deque
+class MinStack:
+
+    def __init__(self):
+        self.stack = deque()
+        self.count = 0
+        self.cur = -1
+        self.min = 2**31-1
+        
+
+    def push(self, val: int) -> None:         #during pushing ele keep track to min ele , insert a list of [ele,curMin]
+        if val<=self.min:
+            self.min=val
+        self.stack.append([val,self.min])
+        self.cur+=1
+        self.count+=1
+        
+
+    def pop(self) -> None:                 #if the curMin ele is poped  and stack is not empty the update min to val of previous min else assinge the large val to min.
+        if self.count!=0:
+            self.count-=1
+            self.cur-=1
+            self.stack.pop()
+            if self.count!=0:
+                self.min = self.stack[-1][1]
+            else:
+                self.min = 2**31-1
+
+    def top(self) -> int:                  #return the val at index 0 of cur ele
+        if self.count!=0:
+            return self.stack[self.cur][0]
+        
+        
+
+    def getMin(self) -> int:               #return the val of index 1 of cur ele
+        if self.count!=0:
+            return self.stack[self.cur][1]
+
+        
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(val)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
