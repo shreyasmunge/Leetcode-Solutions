@@ -1,3 +1,21 @@
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        stack = [] #stores[2,1] means ele of position i,k in 132[i,j,k] pattern
+        curMin = nums[0]
+        for ele in  nums[1:]:
+            while stack and ele>=stack[-1][0]: #check if j>k
+                stack.pop()
+            if stack and ele>stack[-1][1]:#check if j>i
+                return True
+            stack.append([ele,curMin])
+            curMin=min(curMin,ele) #here we already find the i of cur ele
+        return False
+
+
+
+
+
+
 from collections import deque
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
