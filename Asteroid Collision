@@ -1,0 +1,16 @@
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []
+        for i in range(len(asteroids)):
+            if asteroids[i]>0:    #if positive asteroid then append to stack
+                stack.append(asteroids[i])
+            else:    # else, check if top of stack is positive and absolute of cur negative asteroid is greater than top of stack, then pop
+                while stack and stack[-1]>0 and abs(asteroids[i])>stack[-1]:
+                    stack.pop()
+
+                if stack and stack[-1]==abs(asteroids[i]):  #if top of stack and cur negative asteroid are equal then both should not be consider so ,pop it from stack
+                    stack.pop()
+                elif not stack or stack[-1] < 0:   #if top of stack is negative then append the cur negative asteroid.
+                    stack.append(asteroids[i])
+        return stack
+            
