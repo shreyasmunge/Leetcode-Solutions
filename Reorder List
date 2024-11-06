@@ -1,3 +1,55 @@
+
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Reorders the list in-place to match the order: L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ...
+        """
+        if not head or not head.next:
+            return  # No need to reorder if the list is empty or has only one element.
+
+        # Step 1: Find the middle of the linked list using the slow and fast pointer technique.
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # Step 2: Push the second half of the list onto a stack.
+        stack = []
+        current = slow
+        while current:
+            stack.append(current)
+            current = current.next
+
+        # Step 3: Merge the two halves using the stack.
+        first = head
+        while stack:
+            # Pop from the stack to get the last element of the second half.
+            top = stack.pop()
+
+            # Insert the popped node from the stack between nodes of the first half.
+            temp = first.next
+            first.next = top
+            top.next = temp
+
+            # Move `first` pointer forward by one node in the original sequence.
+            first = temp
+
+            # If we're at the end of the first half, break to avoid further merging.
+            if first == slow:
+                break
+
+        # Final step: Set the next pointer of the last node to `None` to terminate the reordered list.
+        if first:
+            first.next = None
+
+
+
+
+
+
+
+
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
