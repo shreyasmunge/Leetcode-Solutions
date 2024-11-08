@@ -5,6 +5,37 @@
 #         self.next = next
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        length = 0
+        cur = head 
+        prev = None
+        while head: #get total len of LL
+            length+=1
+            head = head.next
+        if length-n == 0:  #edge case(if n is first node)
+            head = cur.next 
+            return head
+        dummy = cur
+        pos = 0
+        while cur and length-pos != n : #track the node and del
+            prev = cur
+            cur = cur.next
+            pos+=1
+        
+        prev.next = cur.next
+        return dummy
+
+
+
+
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         pre = head
         cur = head
         for i in range(n):
