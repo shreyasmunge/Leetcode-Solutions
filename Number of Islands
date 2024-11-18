@@ -1,0 +1,27 @@
+from collections import deque
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        def bfs(grid,i,j,visited): #to check the connected components
+            visited[i][j] == '1'
+            queue = deque()
+            queue.append([i,j])
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            while queue:
+                row,col = queue.popleft()
+                for i,j in directions: #check all sides
+                    r = row + i
+                    c = col +j
+                    if r>=0 and r<n and c>=0 and c<m and grid[r][c]=='1' and not visited[r][c]:
+                        visited[r][c]='1'
+                        queue.append([r,c])
+        #To visit all islands
+        islands = 0
+        visited = [[False] * m for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                if not visited[i][j] and grid[i][j] == '1':
+                    islands+=1
+                    bfs(grid,i,j,visited)
+        return islands
