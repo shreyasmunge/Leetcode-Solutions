@@ -1,0 +1,23 @@
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        n=len(isConnected)
+        lis = [[] for _ in range(n)]
+        for i in range(n):   #convert matrix to adjacent list
+            for j in range(n):
+                if isConnected[i][j] == 1 and i!=j:
+                    lis[i].append(j)
+                    lis[j].append(i)
+
+        def dfs(lis,node,visited):  #dfs for each component
+            visited[node] = True
+            for neighbour in lis[node]:
+                if not visited[neighbour]:
+                    dfs(lis,neighbour,visited)
+        visited = [False]*n
+        count = 0
+
+        for i in range(n):  # each node traverse
+            if not visited[i]:
+                count+=1
+                dfs(lis,i,visited)
+        return count
