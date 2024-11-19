@@ -1,0 +1,24 @@
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        m = len(image)
+        n = len(image[0])
+        original = image[sr][sc]
+        if original == color:  #edge case 
+            return image
+        def dfs(i,j):  # changes color of all adjacent cells with same color
+            image[i][j] = color
+            directions = [(1,0),(-1,0),(0,1),(0,-1)]
+            for row,col in directions: # checking all four directiion for current cell
+                r=i+row
+                c=j+col
+                if r<m and r>=0 and c<n and c>=0 and image[r][c] ==original: #if inbound and follow conditions call dfs 
+                    dfs(r,c)
+        dfs(sr,sc)
+        return image
+
+
+
+
+
+
+        
