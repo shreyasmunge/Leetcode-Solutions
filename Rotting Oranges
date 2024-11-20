@@ -1,0 +1,34 @@
+from collections import deque
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+        fresh = 0
+        queue = deque()
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 2:
+                    queue.append([i,j,0])
+                if grid[i][j] == 1:
+                    fresh +=1
+        time = 0
+       
+        
+        directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        while queue and fresh>0:
+            row,col,t = queue.popleft()
+            time = t
+            for r,c in directions:
+                i = row+r
+                j = col+c
+                if i<m and j<n and i>=0 and j>=0 and grid[i][j]==1:
+                    fresh-=1
+                    grid[i][j] = 2
+                    queue.append([i,j,t+1])
+                    time = max(time, t + 1) 
+        return time if fresh == 0 else -1
+            
+        
+    
+                
+    
