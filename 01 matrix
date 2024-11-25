@@ -1,0 +1,36 @@
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        n = len(mat)
+        m = len(mat[0])
+        visited = [[False] * m for _ in range(n)]
+        distance = [[0] * m for _ in range(n)]
+        queue = []
+        for i in range(n):
+            for j in range(m):
+                if mat[i][j] == 0:
+                    queue.append(((i,j),0))
+                    visited[i][j] = True
+        directions = [(1,0),(0,1),(-1,0),(0,-1)]
+        while queue:
+            element = queue.pop(0)
+            location,value = element
+            distance[location[0]][location[1]] = value
+            for row,cols in directions:
+                r = row+location[0]
+                c =cols+location[1]
+                if r<n and c<m and r>=0 and c>=0 and visited[r][c] == False:
+                    visited[r][c] = True
+                    queue.append(((r,c),value+1))
+
+        return distance
+
+
+
+
+
+
+
+
+
+
+        
