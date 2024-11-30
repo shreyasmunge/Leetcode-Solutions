@@ -1,0 +1,37 @@
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m = len(board)
+        n = len(board[0])
+        def dfs(i,j,visited,board):  #the boarder O if dfs'ed so that all those O remains same and cannot be replaced with X
+            visited[i][j] = 1
+            surroundings = [(0,1),(0,-1),(1,0),(-1,0)]
+            for r,c in surroundings:
+                row = r+i
+                cols= c+j
+                if row>=0 and row<m and cols>=0 and cols<n and not visited[row][cols] and board[row][cols]=="O":
+                    visited[row][cols] = 1
+                    dfs(row,cols,visited,board)
+        visited = [[0] *n for _ in range(m) ]
+        for r in range(n):  # to check if the first and last row have "O"
+            if board[0][r] == "O" and visited[0][r] != 1:
+                dfs(0, r, visited, board)  # Top row
+            if board[m-1][r] == "O" and visited[m-1][r] != 1:
+                dfs(m-1, r, visited, board)  # Bottom row
+
+        for c in range(m):  # to check if the first and last column have "O"
+            if board[c][0] == "O" and visited[c][0] != 1:
+                dfs(c, 0, visited, board)  # Left column
+            if board[c][n-1] == "O" and visited[c][n-1] != 1:
+                dfs(c, n-1, visited, board)  # Right column
+
+        for i in range(m): # replace O with X if O is not on boarder or its connected O's and not on boarder
+            for j in range(n):
+                if visited[i][j]!=1 and board[i][j] == "O":
+                    board[i][j] = "X"
+
+        
+
+        
