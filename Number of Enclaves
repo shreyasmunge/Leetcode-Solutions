@@ -1,0 +1,37 @@
+class Solution:
+    def numEnclaves(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+        #dfs visited all cells which are linked to a boundary cell and mark them visited
+        def dfs(i,j):
+            visited[i][j] = True
+            directions = [(0,1),(1,0),(-1,0),(0,-1)]
+            for row,cols in directions:
+                r = row+i
+                c = cols+j
+                if r>=0 and r<m and c>=0 and c<n and grid[r][c]==1 and not visited[r][c]:
+                    dfs(r,c)
+        visited = [[False]*n for _ in range(m)]
+        #this loop helps to check if upper row and lower row have a 1
+        for r in range(n):
+            if grid[0][r] == 1 and not visited[0][r]:
+                dfs(0,r)
+            if grid[m-1][r] == 1 and not visited[m-1][r]:
+                dfs(m-1,r)
+        #this loop helps to check if firs cols and last cols have a 1
+        for c in range(m):
+            if grid[c][0] == 1 and not visited[c][0]:
+                dfs(c,0)
+            if grid[c][n-1] == 1 and not visited[c][n-1]:
+                dfs(c,n-1)
+        #count the number of not visited 
+        count = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1 and not visited[i][j]:
+                    count+=1
+        return count
+        
+
+        
+        
