@@ -1,0 +1,34 @@
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        def check(node,colors):
+            queue = []
+            colors[node] = 0
+            queue.append(node)
+            while queue:
+                node = queue.pop(0)
+                for neighbour in graph[node]:
+                    #if not colored , then color alternate
+                    if colors[neighbour] == -1:
+                        if colors[node] == 1:
+                            colors[neighbour] = 0
+                        else:
+                            colors[neighbour] = 1
+                        queue.append(neighbour)
+                    # if adjacent same colors
+                    elif colors[neighbour] == colors[node]:
+                        return False
+    
+            return True
+        colors = [-1] * len(graph)
+        #for connected graphs 
+        for i in range(len(graph)):
+            if colors[i] == -1:
+                if check(i,colors) == False:
+                    return False
+        return True
+        
+            
+
+
+
+        
