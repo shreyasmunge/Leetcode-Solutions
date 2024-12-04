@@ -1,3 +1,5 @@
+#using bfs
+
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
         def check(node,colors):
@@ -27,7 +29,40 @@ class Solution:
                     return False
         return True
         
+
+
+
+
+
+
+#using dfs
+
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        colors=[-1]*len(graph)
+
+        def dfs(node,col,colors,graph):
+            colors[node] = col
+            for neighbour in graph[node]:
+                if colors[neighbour] == -1:
+                    if dfs(neighbour,1-col,colors,graph) == False:
+                        return False
+                elif colors[neighbour] == col:
+                    return False
+            return True
+
+
+        for i in range(len(graph)):
+            if colors[i]== -1:
+                if dfs(i,0,colors,graph) == False:
+                    return False
+        return True
+        
             
+
+
+
+        
 
 
 
