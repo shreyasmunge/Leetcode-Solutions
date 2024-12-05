@@ -1,0 +1,37 @@
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        visited = [False]*len(graph)
+        check = [0] *len(graph)
+        path = [False]*len(graph)
+        lis = []
+        #if no cycle then mark 
+        def dfs(i,visited,path,check):
+            visited[i] = True
+            path[i] = True
+            check[i] = 0
+            #if not visited then do dfs and if cycle found mark found or if already present in path mark found 
+            for neighbour in graph[i]:
+                if not visited[neighbour]:
+                    if dfs(neighbour,visited,path,check)==True:
+                        check[neighbour] = 0
+                        return True
+                    
+                elif  path[neighbour]:
+                    check[neighbour] = 0
+                    return True
+
+            check[i] = 1   
+            path[i] = False
+            
+            return False
+
+        for i in range(len(graph)):
+            if not visited[i]:
+                dfs(i,visited,path,check)
+        for i in range(len(check)):
+            if check[i] == 1:
+                lis.append(i)
+                   
+                  
+        return lis
+        
