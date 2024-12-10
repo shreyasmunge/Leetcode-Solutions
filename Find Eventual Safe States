@@ -1,3 +1,4 @@
+Solution 1 : Using DFS
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         visited = [False]*len(graph)
@@ -34,4 +35,43 @@ class Solution:
                    
                   
         return lis
+
+
+
+
+
+Solution 2 : Using BFS(topo sort) 
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        indegree = [0]*numCourses #to keep track of vertices with 0 indegree
+        queue = []
+        adjacent = [[] for _ in range(numCourses)]
+        topo = []
+        #convert to adjacency list
+        for i in range(len(prerequisites)):
+            adjacent[prerequisites[i][1]].append(prerequisites[i][0])
+        #count indegree for each vertice and add to a list
+        for i in range(len(adjacent)):
+            for j in range(len(adjacent[i])):
+                indegree[adjacent[i][j]]+=1
+        #if indegree is 0 , append to queue
+        for i in range(len(indegree)):
+            if indegree[i]==0:
+                queue.append(i)
+        #while queue not emepty, pop ele and it is topo sort oreder, iterate to all connections of poped vertice also update its indegree if 0 add to queue
+        while queue:
+            node = queue.pop(0)
+            topo.append(node)
+            for i in range(len(adjacent[node])):
+                neighbour = adjacent[node][i]
+                indegree[neighbour]-=1
+                if indegree[neighbour]==0:
+                    queue.append(neighbour)
+        #the len(topo) should be equal to no.of vertices
+        return len(topo)==numCourses
+
+
+
+        
         
