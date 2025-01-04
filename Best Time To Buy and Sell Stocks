@@ -1,3 +1,23 @@
+Solution 1 : using dp
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        # for i'th day calculate minimum stock price from start to i'th day(buy price)
+        # for current day profit is current day price-min buy price, keep track of max profit .
+        profit = 0 
+        buy = float('inf')
+        for i in range(len(prices)):
+            buy = min(buy,prices[i])
+            profit = max(profit,prices[i]-buy)
+        return profit
+
+        
+
+
+
+
+
+Solutino 2 : using two pointers 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         i=0
