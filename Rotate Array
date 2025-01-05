@@ -1,3 +1,21 @@
+Solution 1 : (with extra space)
+
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        arr = nums.copy()
+        n = len(nums)
+        for i in range(len(arr)):
+            idx = i+k
+            nums[idx%n] = arr[i]
+            
+
+
+
+
+Solution 2: (pythonic)
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
         """
