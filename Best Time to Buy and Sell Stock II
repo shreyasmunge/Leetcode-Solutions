@@ -1,0 +1,11 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        buy = prices[0]
+        profit = 0
+        for i in range(1,len(prices)):
+            buy = min(buy,prices[i]) #buy on min day
+            if prices[i]>buy: #if cur day price more than buy then sell
+                profit = profit+prices[i]-buy
+                buy = prices[i] #buy on same day,may be this is best buy in for future
+        return profit
+        
