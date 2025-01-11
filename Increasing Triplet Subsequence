@@ -1,0 +1,14 @@
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        small = float('inf')
+        big = float('inf')
+        for i in range(len(nums)):
+            if nums[i]>big and nums[i]>small:
+                return True
+            if nums[i]<small:
+                small = nums[i]
+            if nums[i]>small:
+                big = nums[i]
+        return False
+
+        
