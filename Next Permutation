@@ -1,3 +1,30 @@
+Solution 1:
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        #find largest idx(k) such that nums[k] < nums[k + 1]
+        k = -1
+        for i in range(len(nums)-2,-1,-1):
+            if nums[i]<nums[i+1]:
+                k = i
+                break
+        #if k is 0, then reverse else, find largest ele(l) to right of k,swap k and l
+        #then reverse k+1 to last
+        if k==-1:
+            nums.reverse()
+            return
+        else:
+            for l in range(len(nums)-1,k,-1):
+                if nums[l]>nums[k]:
+                    nums[k],nums[l] = nums[l],nums[k]
+                    break
+            nums[k+1:] = reversed(nums[k+1:])
+
+            
+            
+Solution 2:
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
         """
