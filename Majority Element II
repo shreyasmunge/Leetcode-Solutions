@@ -1,3 +1,30 @@
+Solution1 : using boyer moore voting algo
+class Solution:
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        #Boyers-Moore with two counters
+        count1,count2,cur_maj1,cur_maj2 = 0,0,0,1
+        lis = []
+        n = len(nums)
+        for num in nums:
+            if num == cur_maj1:
+                count1+=1
+            elif num == cur_maj2:
+                count2+=1 
+            elif count1 == 0:
+                cur_maj1,count1 = num, 1
+            elif count2 == 0:
+                cur_maj2,count2 = num , 1
+            else:
+                count1,count2 = count1-1 , count2-1
+        lis = []
+        for cur_maj in (cur_maj1,cur_maj2):
+            if nums.count(cur_maj) > n//3:
+                lis.append(cur_maj)
+        return lis
+        
+
+
+Solution2:
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
         size=len(nums)/3
