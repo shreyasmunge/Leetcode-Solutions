@@ -1,0 +1,40 @@
+from typing import List
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        def backtracking(board,col,ans):
+            if col==n:
+                ans.append(["".join(row) for row in board]) #append cur possibility and try other
+                return
+            for row in range(n):
+                if isSafe(col,row,board,n):
+                    board[row][col] = 'Q'
+                    backtracking(board,col+1,ans)
+                    board[row][col] = '.' #undoing changes to explore other possibilites
+        #function to check if cur loc is valid 
+        def isSafe(col,row,board,n):
+            cols = col
+            rows = row
+            while col>=0 and row>=0: #cur loc to top-left
+                if board[row][col]=='Q':
+                    return False
+                row-=1
+                col-=1
+            col = cols
+            row = rows
+            for i in range(cols,-1,-1): #same row
+                if board[row][i] == 'Q':
+                    return False
+            while col>=0 and row<n: #cur loc to bottom-left
+                if board[row][col]=='Q':
+                    return False
+                row+=1
+                col-=1
+            return True
+            
+
+        #n*n matrix with '.'
+        board = [['.' for _ in range(n)] for _ in range(n)]
+        ans = []
+        backtracking(board,0,ans)
+        return ans
+        
