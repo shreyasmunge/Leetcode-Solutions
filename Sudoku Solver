@@ -1,0 +1,49 @@
+from typing import List
+
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        rows = [set() for _ in range(9)]
+        cols = [set() for _ in range(9)]
+        boxes = [set() for _ in range(9)]
+        empty_cells = []
+
+        #Store existing numbers and find empty cells
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == '.':
+                    empty_cells.append((i, j))
+                else:
+                    num = board[i][j]
+                    rows[i].add(num)
+                    cols[j].add(num)
+                    boxes[(i // 3) * 3 + (j // 3)].add(num)
+
+        def backtracking(index):
+            if index == len(empty_cells):  # All empty cells filled, solution found
+                return True
+
+            i, j = empty_cells[index]  # Get next empty cell
+            box_idx = (i // 3) * 3 + (j // 3)
+
+            for c in "123456789":
+                if c not in rows[i] and c not in cols[j] and c not in boxes[box_idx]:
+                    board[i][j] = c
+                    rows[i].add(c)
+                    cols[j].add(c)
+                    boxes[box_idx].add(c)
+
+                    if backtracking(index + 1):  # Move to the next empty cell
+                        return True
+
+                    # Backtrack (undo choice)
+                    board[i][j] = '.'
+                    rows[i].remove(c)
+                    cols[j].remove(c)
+                    boxes[box_idx].remove(c)
+
+            return False  # No valid number found, backtrack
+
+        backtracking(0)
