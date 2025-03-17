@@ -1,0 +1,40 @@
+#User function Template for python3
+class Solution:
+    # Function to find all possible paths
+    def findPath(self, mat):
+        if not mat or mat[0][0]==0:
+            return []
+        n = len(mat)
+        res = []
+        def backtracking(lis,i,j):
+            if i==n-1 and j==n-1:
+                res.append("".join(lis))
+                return
+            mat[i][j]=0
+            if i+1<n and mat[i+1][j]==1:
+                lis.append('D')
+                backtracking(lis,i+1,j)
+                lis.pop()
+            if j - 1 >= 0 and mat[i][j - 1] == 1:
+                lis.append('L')
+                backtracking(lis, i, j - 1)
+                lis.pop()
+            if j+1<n and mat[i][j+1]==1:
+                lis.append('R')
+                backtracking(lis,i,j+1)
+                lis.pop()
+            if i - 1 >= 0 and mat[i - 1][j] == 1:
+                lis.append('U')
+                backtracking(lis, i - 1, j)
+                lis.pop()
+            
+            # Move Left
+           
+            mat[i][j]=1
+                
+        backtracking([],0,0)
+        return res 
+
+
+
+
