@@ -1,0 +1,31 @@
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        r = len(board)
+        c = len(board[0])
+        n = len(word)
+        idx = 0
+        directions = [(0,1),(1,0),(-1,0),(0,-1)]
+        def backtracking(i,j,idx): 
+            if idx==n:#base case
+                return True
+            if i<0 or j<0 or i>=r or j>=c or board[i][j]!=word[idx]:#if out of bound or does not match
+                return False
+            temp = board[i][j]
+            board[i][j]='0'#mark
+            for k,l in directions:#check all 4 directions
+                if backtracking(i+k,j+l,idx+1):
+                    return True
+            board[i][j] = temp#unmark
+            return False
+        #go to each cell 
+        for i in range(r):
+            for j in range(c):
+                if board[i][j]==word[idx]:
+                    if backtracking(i,j,idx):
+                        return True
+        return False
+
+                    
+                    
+
+        
