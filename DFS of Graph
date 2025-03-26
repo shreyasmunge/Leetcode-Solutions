@@ -1,0 +1,22 @@
+#User function Template for python3
+
+class Solution:
+    
+    #Function to return a list containing the DFS traversal of the graph.
+    def dfsOfGraph(self, adj):
+        res = []
+        n = len(adj)
+        visited = [False]*(n+1) #keep track of visited
+        def dfs(node):
+            if visited[node]==True: #if visited
+                return
+            visited[node] = True #if not visited, mark visited and append in res
+            res.append(node)
+            for neighbour in adj[node]: #travers neighbour of cur_node
+                dfs(neighbour)
+        dfs(0)
+        return res
+            
+                
+
+
