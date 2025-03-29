@@ -1,0 +1,31 @@
+class Solution:
+    
+    #Function to return list containing vertices in Topological order.
+    def topologicalSort(self,adj):
+        #calculate indegree of each node
+        indegree = [0] * len(adj)
+        for i in range(len(adj)):
+            for j in range(len(adj[i])):
+                indegree[adj[i][j]] += 1 
+                
+        #node with indegree 0 append in queue 
+        queue = []
+        res = []
+        for i in range(len(indegree)):
+            if indegree[i]==0:
+                queue.append(i)
+        
+        #pop from queue , and reduce indegree of each neighbour ele of poped ele       
+        while queue:
+            ele = queue.pop(0)
+            res.append(ele)
+            for i in range(len(adj[ele])):
+                neighbour = adj[ele][i]
+                indegree[neighbour]-=1
+                if indegree[neighbour]==0:
+                    queue.append(neighbour)
+                    
+                    
+        return res
+                    
+
