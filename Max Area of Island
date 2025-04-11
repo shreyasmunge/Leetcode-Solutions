@@ -1,0 +1,22 @@
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+        visited = [[False] * n for _ in range(m)]
+        directions = [[0,1],[1,0],[-1,0],[0,-1]]
+        def dfs(i,j):
+            if i>=m or i<0 or j<0  or j>=n or visited[i][j]==True or grid[i][j]==0:
+                return 0
+            visited[i][j] = True
+            area = 1
+            for k,l in directions:
+                if i+k<m and i+k>=0 and j+l>=0 and j+l<n and grid[i+k][j+l]!=0 and not visited[i+k][j+l] :
+                    area+=dfs(i+k,j+l)
+            return area
+        max_area = 0
+        for i in range(m):
+            for j in range(n):
+                if not visited[i][j] and grid[i][j]!=0:
+                    max_area = max(max_area,dfs(i,j))
+        return max_area
+        
