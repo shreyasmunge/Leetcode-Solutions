@@ -1,0 +1,30 @@
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        #traverse graph using dfs
+        graph = [[] for _ in range(n)]
+        for i,j in edges: #create adj list
+            graph[i].append(j)
+            graph[j].append(i)
+        visited = [0] * n
+        def dfs(node,visited):
+            if visited[node]==1:
+                return False
+            if node == destination:
+                return True
+            visited[node]=1
+            for neighbour in graph[node]: #traverse neighbour of cur node
+                if visited[neighbour]==0:
+                    if dfs(neighbour,visited):
+                        return True
+            return False
+
+        return dfs(source,visited)
+
+        
+
+
+
+
+        
+
+        
