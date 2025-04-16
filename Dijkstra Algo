@@ -1,0 +1,35 @@
+import heapq #min-heap 
+class Solution:
+    # Returns shortest distances from src to all other vertices
+    def dijkstra(self, V, edges, src):
+        # convert to adj list 
+        graph = [[] for _ in range(V)]
+        for s,dest,val in edges:
+            graph[s].append((dest,val))
+        
+            
+        def dj(graph,start):
+            distance = [float('inf')] * V            
+            distance[start] = 0
+            visited = set()
+            pq = [(0,start)]
+            
+            while pq:
+                curr_dist,curr_node = heapq.heappop(pq) #pop heapq
+                if curr_node not in visited:
+                    visited.add(curr_node)
+                    for neighbour,weight in graph[curr_node]: #iterate neighbour
+                        new_dist = curr_dist+weight
+                        if new_dist<distance[neighbour]: #compaar cur dist and prev dist
+                            distance[neighbour] = new_dist
+                            heapq.heappush(pq,(new_dist,neighbour))
+                            
+            return distance
+        return dj(graph,src)
+            
+        
+        
+        
+        
+
+
