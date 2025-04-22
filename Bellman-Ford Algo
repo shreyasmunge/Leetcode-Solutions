@@ -1,0 +1,24 @@
+#User function Template for python3
+
+class Solution:
+    def bellmanFord(self, V, edges, src):
+        #create a lis for dis
+        distance = [float('inf')]*V
+        distance[src] = 0
+        #relax the edges[means if curr dist is shortest or not] V-1 times
+        for _ in range(V-1):
+            for s,d,w in edges:
+                if distance[s]!=float('inf') and distance[s]+w < distance[d]:
+                    distance[d] = distance[s]+w
+                   
+        #check for -ve cycle
+        for s,d,w in edges:
+            if distance[s]!=float('inf') and distance[s]+w < distance[d]:
+                return [-1]
+        
+        
+        for i in range(V):
+            if distance[i]==float('inf'):
+                distance[i] = 10**8
+        return distance
+       
