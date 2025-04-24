@@ -1,0 +1,14 @@
+#User function template for Python
+
+class Solution:
+	def floydWarshall(self, dist):
+	    n = len(dist)
+	    for k in range(n): #pick intermediat node to travel from i to j
+	        for i in range(n): #source
+	            for j in range(n): #destation 
+	                if dist[i][k]!=10**8 and dist[k][j]!=10**8: #there must be path from i to j and j to i
+	                    dist[i][j] = min(dist[i][j],dist[i][k]+dist[k][j]) #compar cur_path and intermediat path
+	    return dist
+	  
+		
+
