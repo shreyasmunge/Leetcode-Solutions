@@ -1,0 +1,24 @@
+#User function Template for python3
+from typing import List
+import heapq
+class Solution:
+    
+    #Function to find sum of weights of edges of the Minimum Spanning Tree.
+    def spanningTree(self, V: int, adj: List[List[int]]) -> int:
+        #create a adj list for undirected graph
+            
+        visited = [False]*V
+        min_heap = [(0,0)]
+        mst_cost = 0
+        while min_heap:
+            val, node = heapq.heappop(min_heap)
+            if visited[node]:
+                continue
+            visited[node] = True
+            mst_cost+=val
+            for neighbour,value in adj[node]:
+                if visited[neighbour]!=True:
+                    heapq.heappush(min_heap,(value,neighbour))
+        return mst_cost
+            
+
