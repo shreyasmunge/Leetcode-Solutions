@@ -1,0 +1,15 @@
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        def backtracking(cur_sum,cache):
+            if cur_sum >n:
+                return 0
+            if cur_sum==n:
+                return 1
+            if cur_sum in cache:
+                return cache[cur_sum]
+            cache[cur_sum] = backtracking(cur_sum+1,cache)+backtracking(cur_sum+2,cache)
+            return cache[cur_sum]
+        cache = {}
+        return backtracking(0,cache)
+        
+        
