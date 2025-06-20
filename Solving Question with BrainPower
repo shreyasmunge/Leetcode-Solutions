@@ -1,0 +1,13 @@
+class Solution:
+    def mostPoints(self, questions: List[List[int]]) -> int:
+        n = len(questions)
+        dp = [0]*(n+1)
+        for i in range(n-1,-1,-1):
+            points,brainstrom = questions[i]
+            next_idx = (i+brainstrom+1)
+            if next_idx<n:
+                take = points+dp[next_idx]
+            else:
+                take = points 
+            dp[i] = max(dp[i+1],take)
+        return dp[0]
