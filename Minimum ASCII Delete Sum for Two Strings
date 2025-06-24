@@ -1,0 +1,36 @@
+class Solution:
+    def minimumDeleteSum(self, s1: str, s2: str) -> int:
+        m = len(s1)
+        n = len(s2)
+        grid = [['']*(n+1) for _ in range(m+1)]
+        for i in range(1,m+1): #similar to lcs but instead of 1's we are using strings
+            for j in range(1,n+1):
+                if s1[i-1]==s2[j-1]: 
+                    grid[i][j] = s1[i-1]+grid[i-1][j-1] #if same char add previous to cur
+                else:
+                    top = len(grid[i][j-1]) #get len of top and left cell
+                    left = len(grid[i-1][j]) 
+                    #assign which ever is greater len or have high ascii val
+                    if top>left: 
+                        grid[i][j] = grid[i][j-1]
+                    elif top<left:
+                        grid[i][j] = grid[i-1][j]
+                    else:
+                        if ascii_sum(grid[i][j-1])>ascii_sum(grid[i-1][j]):
+                            grid[i][j] = grid[i][j-1]
+                        else:
+                            grid[i][j ] = grid[i-1][j]
+
+        lcs = grid[m][n]
+        ascii_lcs = ascii_sum(lcs)
+        ascii_s1 = ascii_sum(s1)
+        ascii_s2 = ascii_sum(s2)
+        res = (ascii_s1+ascii_s2) - 2*ascii_lcs
+        return res
+
+#fun to get ascii val of string
+def ascii_sum(s):
+    return sum(ord(c) for c in s)
+
+
+            
