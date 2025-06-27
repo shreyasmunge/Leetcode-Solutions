@@ -1,0 +1,17 @@
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        m = len(s)
+        n = len(t)
+        if n>m:
+            return 0
+        grid = [[0]*(n+1) for _ in range(m+1)]
+        for i in range(m+1):
+            grid[i][0] = 1
+        for i in range(1,m+1):
+            for j in range(1,n+1):
+                if s[i-1] == t[j-1]:
+                    grid[i][j] = grid[i-1][j-1] + grid[i-1][j] #dont skip
+                else:
+                    grid[i][j] = grid[i-1][j] #skip the char
+        return grid[m][n]
+        
