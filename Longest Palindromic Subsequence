@@ -1,0 +1,20 @@
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        #find lcs between string s and revers of string s
+        str1 = s
+        str2 = s[::-1]
+        m,n = len(str1),len(str2)
+        grid = [[''] * (n+1) for _ in range(m+1)]
+        for i in range(1,m+1): #find lcs
+            for j in range(1,n+1):
+                if str1[i-1] == str2[j-1]:
+                    grid[i][j] = grid[i-1][j-1] + str1[i-1]
+                else:
+                    len1 = len(grid[i-1][j])
+                    len2 = len(grid[i][j-1])
+                    if len1>len2:
+                        grid[i][j] = grid[i-1][j]
+                    else:
+                        grid[i][j] = grid[i][j-1]
+        return len(grid[m][n])
+        
