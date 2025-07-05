@@ -1,0 +1,24 @@
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        #fun to check if capcaity is min or not
+        def canCarry(capacity):
+            load = 0 
+            duration = 1
+            for i in range(len(weights)):
+                if (weights[i]+load)<=capacity:
+                    load+=weights[i]
+                else:
+                    duration+=1
+                    load = weights[i]
+            return duration<=days
+
+        #validate the capacity and reduce the search space
+        left,right = max(weights),sum(weights)
+        while left<right:
+            mid = (left+right)//2
+            if canCarry(mid):
+                right = mid
+            else:
+                left = mid+1
+        return left
+        
