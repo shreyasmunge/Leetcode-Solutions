@@ -1,0 +1,28 @@
+class Solution:
+    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
+        n = len(bloomDay)
+        if m*k>n:
+            return -1 #not enough flowers
+        def valid_bouquet(days):
+            flower = 0
+            bouquet = 0 
+            for bloom in bloomDay:
+                if bloom<=days: #add flower to bouquet
+                    flower+=1
+                    if flower == k: #bouquet completed 
+                        bouquet+=1
+                        flower = 0 #as this bouquet completed, count flowers for other bouqute
+                else:
+                    flower = 0 #cannot add to bouquet
+            return bouquet>=m
+
+
+        left, right = min(bloomDay),max(bloomDay)
+        while left<right:
+            mid = (left+right)//2
+            if valid_bouquet(mid):
+                right = mid
+            else:
+                left = mid+1
+        return left
+        
