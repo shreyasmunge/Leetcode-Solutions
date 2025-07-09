@@ -1,0 +1,25 @@
+class Solution:
+    def nthUglyNumber(self, n: int, a: int, b: int, c: int) -> int:
+        def is_ugly(num):
+            total = mid//a + mid//b + mid//c - mid//ab - mid//ac - mid//bc + mid//abc
+            return total >= n
+        '''count_ugly = 0
+            for i in range(1,num+1):
+                if i%a==0 or i%b==0 or i%c==0:
+                    count_ugly+=1#is mid nth ugly number
+            return count_ugly>=n#if >=n , then there may be other possible solution also '''
+        ab = a * b // math.gcd(a, b)
+        ac = a * c // math.gcd(a, c)
+        bc = b * c // math.gcd(b, c)
+        abc = a * bc // math.gcd(a, bc)
+
+        left = 1
+        right = min(a,b,c) * n
+        while left<right:
+            mid = (left+right)//2
+            if is_ugly(mid):
+                right = mid
+            else:
+                left = mid+1
+        return left
+        
