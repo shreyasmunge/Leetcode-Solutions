@@ -1,0 +1,30 @@
+class Solution:
+    def smallestDistancePair(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        
+        def is_kth_smallest(diff): #count no. pairs smaller than our mid value using 2 pointers tech to reduc TC
+            pairs = 0
+            j = 0
+            for i in range(n):
+                while j<n and nums[j]-nums[i]<=diff:
+                    j+=1
+                pairs += j-i-1 #count no. of pairs
+            return pairs>=k #if equal return true
+        #left is abs diff of 1st and 2nd ele of sorted array 
+        #right is abs diff of 1st and 2nd from last of sorted array 
+        nums.sort()
+        left = 0
+        right = abs(nums[-1]-nums[0])
+        while left<right:
+            mid = (left+right)//2
+            if is_kth_smallest(mid): #if condition true, it means there and may be more pairs on left side
+                right = mid
+            else:
+                left = mid+1
+        return left
+
+
+
+
+
+        
