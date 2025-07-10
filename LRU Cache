@@ -1,0 +1,46 @@
+import heapq
+from itertools import count
+class LRUCache:
+
+
+    
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.map = {}
+        self.pq = []
+        self.counter = count()
+
+        
+
+    def get(self, key: int) -> int:
+        if key in self.map : #if key present in cache , then update the key and timestamp and add to heap 
+            value = self.map[key][0]
+            time = next(self.counter)
+            self.map[key] = (value,time)
+            heapq.heappush(self.pq,(time,key))
+            return value 
+        return -1
+        
+    #add the latest ele to cache and heap whit timestamp, if size of cahce is > capacitly then remove the ele which is lru using timestamp find that ele from heap and remove from cache
+    def put(self, key: int, value: int) -> None:
+        time = next(self.counter) 
+        self.map[key] = (value,time)
+        heapq.heappush(self.pq,(time,key))
+        if len(self.map)>self.capacity:
+            while self.pq:
+                time,key = heapq.heappop(self.pq)
+                if self.map[key][1]==time:
+                    del self.map[key]
+                    break
+            
+                
+        
+        
+
+        
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
