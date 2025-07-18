@@ -1,0 +1,17 @@
+class Solution:
+    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
+        i,j = 0,0
+        n = len(s)
+        max_len = 0
+        total_cost = 0
+        while j<n:
+            cur_cost = abs(ord(s[j])-ord(t[j]))#cal current cost and track total cost of current window
+            total_cost+=cur_cost
+            while total_cost>maxCost: #if totalcost of curwindow is more than maxCost then shrink window and also sub from total cost to form new window
+                remove_cost = abs(ord(s[i])-ord(t[i]))
+                total_cost-=remove_cost
+                i+=1
+            max_len = max(max_len,j-i+1) #keep track of max_len as we keep on changing windows
+            j+=1
+        return max_len
+        
