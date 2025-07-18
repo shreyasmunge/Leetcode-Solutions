@@ -1,0 +1,24 @@
+class Solution:
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        i,j = 0,0
+        unique = {}
+        n = len(nums)
+        max_sum = 0
+        ans = 0
+        #use map to store unique ele, and also maintain sum of curr window
+        while j<n:
+            if nums[j] not in unique:
+                max_sum+=nums[j]
+                unique[nums[j]] = j
+            else:
+                while nums[j] in unique: #if dup ele found , then reduce max sum and remove first occrance of ele as we need to shrink window
+                    max_sum-=nums[i]
+                    del unique[nums[i]]
+                    i+=1
+                max_sum +=nums[j]
+                unique[nums[j]] = j
+            ans = max(ans,max_sum)
+            j+=1
+        return ans
+
+        
