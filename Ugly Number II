@@ -1,0 +1,16 @@
+import heapq
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        #use heap to give next smaller num
+        #multi that num with our prim to get next ugley nums and append to heap and it should be unique
+        pq = [1]
+        visited = set()
+        prime = [2,3,5]
+        for _ in range(n):
+            ele = heapq.heappop(pq)
+            for p in prime:
+                new_ele = ele*p
+                if new_ele not in visited:
+                    heapq.heappush(pq,new_ele)
+                    visited.add(new_ele)
+        return ele
