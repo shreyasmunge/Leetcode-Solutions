@@ -1,0 +1,23 @@
+import heapq
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        pq = []
+        freq = {}
+        st = ""
+        #count freq of char
+        for c in s:
+            if c not in freq:
+                freq[c] = 1
+            else:
+                freq[c]+=1
+        #push freq,char in pq
+        for k,v in freq.items():
+            heapq.heappush(pq,(-v,k))
+        #pop all ele of pq(max-heap), and create new str with freq of poped ele
+        while pq:
+            v,k = heapq.heappop(pq)
+            st+=(str(k)*-v)
+        return st
+
+
+        
