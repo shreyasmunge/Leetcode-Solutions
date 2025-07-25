@@ -1,0 +1,20 @@
+import heapq
+class Solution:
+    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+        pq = []
+        res = []
+        n = len(nums1)
+        m = len(nums2)
+        #push all possible pair of combi of fixed j pointer and variable i pointer
+        for i in range(min(k,n)):
+            s = nums1[i]+nums2[0]
+            heapq.heappush(pq,(s,i,0))
+        #smallest is always at idx 0 of both array
+        while pq and len(res)<k :
+            cur_sum ,i,j = heapq.heappop(pq)
+            res.append([nums1[i],nums2[j]])
+            #but next smallest can be in heap or combi of cur i ele and next j ele
+            if j+1<m:
+                s = nums1[i]+nums2[j+1]
+                heapq.heappush(pq,(s,i,j+1))
+        return res
