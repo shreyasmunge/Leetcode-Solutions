@@ -1,0 +1,15 @@
+import heapq
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        n = len(matrix)
+        pq = []
+        #add all first row as they are smallest
+        for i in range(min(k,n)):
+            heapq.heappush(pq,(matrix[i][0],i,0))
+        #now keep poping smallest and push next col min val
+        for _ in range(k-1):
+            ele,i,j = heapq.heappop(pq)
+            if j+1<n:
+                heapq.heappush(pq,(matrix[i][j+1],i,j+1))
+        
+        return heapq.heappop(pq)[0]
