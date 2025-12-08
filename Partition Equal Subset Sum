@@ -1,0 +1,22 @@
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        total = sum(nums)
+        n = len(nums)
+        memo = {}
+        def find(i,cur_sum):
+            left = total-cur_sum
+            if (i,cur_sum) in memo:
+                return memo[(i,cur_sum)]
+            if cur_sum == left:
+                return True
+            if cur_sum>left or i>=n:
+                return False
+            if find(i+1,cur_sum+nums[i]):
+                memo[(i,cur_sum)] = True
+                return True
+            res =  find(i+1,cur_sum)
+            memo[(i,cur_sum)] = res
+            return res
+            
+        return find(0,0)
+        
