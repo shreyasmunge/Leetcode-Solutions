@@ -1,0 +1,18 @@
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        #similar to part 2, but after each sell also sub the fee per transcation
+        n = len(prices)
+        memo = [[-1]*(2) for _ in range(n+1)] 
+        def cal(i,buy):
+            if i==n :
+                return 0
+            if memo[i][buy]!= -1:
+                return memo[i][buy]
+            if buy==1:
+                profit = max(-prices[i]+cal(i+1,0),cal(i+1,1))
+            else:
+                profit = max((prices[i]+cal(i+1,1)-fee),cal(i+1,0))
+            memo[i][buy] = profit
+            return profit
+        return cal(0,1)
+        
