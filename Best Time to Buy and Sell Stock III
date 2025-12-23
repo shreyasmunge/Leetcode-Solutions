@@ -1,0 +1,22 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n= len(prices)
+        memo = [[[-1]*(3) for _ in range(2)] for _ in range(n)]
+        #similar to part 2 , but created 3d array also used a capacity variabl in recursion . recrusive part is same
+        def cal(i,buy,cap):
+            if cap==0:
+                return 0
+            if i==n:
+                return 0
+            if memo[i][buy][cap]!=-1:
+                return memo[i][buy][cap]
+            if buy==1:
+                profit = max(-prices[i]+cal(i+1,0,cap),cal(i+1,1,cap))
+            else:
+                profit = max(prices[i]+cal(i+1,1,cap-1),cal(i+1,0,cap))         
+            memo[i][buy][cap] = profit
+            return profit
+        cal(0,1,2)
+        return memo[0][1][2]
+        
+        
