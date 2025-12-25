@@ -1,0 +1,23 @@
+class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [1]*n
+        count = [1]*n
+        max_len = 1
+
+        for i in range(n):
+            for prev in range(i):
+                if nums[i]>nums[prev] and dp[prev]+1>dp[i]:
+                    dp[i] = dp[prev]+1
+                    count[i] = count[prev]
+                elif nums[i]>nums[prev] and dp[prev]+1==dp[i]: #if the prev ways equal to present ways then carry forwar prev ways + curr
+                    count[i]+=count[prev]
+            if dp[i]>max_len:
+                max_len=dp[i]
+        ways = 0
+        for i in range(n):
+            if dp[i]==max_len:
+                ways+=count[i]
+        return ways
+
+        
