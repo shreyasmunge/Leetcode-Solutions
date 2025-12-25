@@ -1,0 +1,24 @@
+class Solution:
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        n=len(nums)
+        nums.sort() #so that we can simplity divisibility rule
+        dp=[1]*n
+        store=[-1]*n
+        last_idx = 0
+        max_len = 1
+        for i in range(n):
+            for prev in range(i):#to compare all prev ele
+                if nums[i]%nums[prev]==0 and dp[prev]+1>dp[i]:
+                    dp[i] = dp[prev]+1
+                    store[i] = prev
+            if dp[i]>max_len:
+                max_len = dp[i]
+                last_idx = i
+        res = []
+        while last_idx !=-1:
+            res.append(nums[last_idx])
+            last_idx = store[last_idx]
+        return res[::-1]
+
+
+
