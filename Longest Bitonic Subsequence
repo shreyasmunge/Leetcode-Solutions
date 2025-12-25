@@ -1,0 +1,23 @@
+class Solution:
+    def LongestBitonicSequence(self, arr):
+        def LIS(nums):
+            n = len(nums)
+            dp = [1]*n
+            for i in range(n):
+                for prev in range(i):
+                    if nums[i]>nums[prev] and dp[prev]+1>dp[i]:
+                        dp[i] = dp[prev]+1
+            return dp
+        n = len(arr)
+        dp1 = LIS(arr)
+        new_arr = arr[::-1]
+        dp2 = LIS(arr[::-1])[::-1]
+        res = [1]*n
+        max_len = 1
+        for i in range(n):
+            res[i] = dp1[i]+dp2[i]-1
+            max_len = max(max_len,res[i])
+        return max_len
+
+
+#similar to LIS , but reverse the arr, so that each arr we get LIS at each idx. then just add then and -1 to remove common idx
