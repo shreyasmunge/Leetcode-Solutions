@@ -1,0 +1,46 @@
+'''
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.right = None
+        self.left = None
+'''
+from collections import deque
+class Solution:
+    def boundaryTraversal(self, root):
+        if not root:
+            return []
+        left = []
+        leaf = []
+        right = []
+        res = [root.data] if root.left or root.right else []
+
+        node = root.left
+        while node!=None:
+            if node.left or node.right:
+                left.append(node.data)
+            if node.left:
+                node = node.left
+            else:
+                node = node.right
+        node = root
+        def leafNode(node):
+            if not node:
+                return 
+            if node.left==None and node.right==None:
+                leaf.append(node.data)
+                return
+            leafNode(node.left)
+            leafNode(node.right)
+        leafNode(node)
+        node = root.right
+        while node!=None:
+            if node.left or node.right:
+
+                right.append(node.data)
+            if node.right:
+                node = node.right
+            else:
+                node = node.left
+        tem=right[::-1]
+        return res+left+leaf+tem
