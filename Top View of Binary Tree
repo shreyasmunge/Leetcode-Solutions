@@ -1,0 +1,35 @@
+'''
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+'''
+from collections import deque
+class Solution:
+    def topView(self, root):
+        hashmap = {}
+        queue = deque()
+        res = []
+        if not root:
+            return res
+        queue.append([root,0])
+        while queue:
+            ele,pos = queue.popleft()
+            if pos not in hashmap:
+                hashmap[pos] = ele.data
+            if ele.left:
+                queue.append([ele.left,pos-1])
+            if ele.right:
+                queue.append([ele.right,pos+1])
+            
+        lis = []
+        for key,val in hashmap.items():
+            lis.append(key)
+        lis.sort()
+        for i in lis:
+            res.append(hashmap[i])
+        return res
+        
+            
+        
