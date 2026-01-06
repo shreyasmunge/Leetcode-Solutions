@@ -1,0 +1,45 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+class Solution:
+    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
+        queue = deque()
+        queue.append(root)
+        hashmap = {}
+        while queue:
+            ele = queue.popleft()
+            if ele.val==start:
+                node = ele
+            if ele.left:
+                queue.append(ele.left)
+                hashmap[ele.left] = ele
+            if ele.right:
+                queue.append(ele.right)
+                hashmap[ele.right] = ele
+
+        queue = deque()
+        queue.append(node)
+        visited = {node}
+        time = 0
+        while queue:
+            n = len(queue)
+            for i in range(n):
+                ele = queue.popleft()
+                if ele.left and ele.left not in visited:
+                    queue.append(ele.left)
+                    visited.add(ele.left)
+                if ele.right and ele.right not in visited:
+                    queue.append(ele.right)
+                    visited.add(ele.right)
+                if ele in hashmap and hashmap[ele] not in visited:
+                    queue.append(hashmap[ele])
+                    visited.add(hashmap[ele])
+            time+=1
+        return time-1
+
+            
+        
