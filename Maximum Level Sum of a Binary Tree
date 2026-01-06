@@ -1,0 +1,42 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+class Solution:
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        queue = deque()
+        if not root:
+            return 0
+        res = []
+        queue.append(root)
+        while queue:
+            level = []
+            n = len(queue)
+            for i in range(n):
+                ele = queue.popleft()
+                level.append(ele.val)
+                if ele.left:
+                    queue.append(ele.left)
+                if ele.right:
+                    queue.append(ele.right)
+        
+            res.append((sum(level),len(level)))
+        max_sum = float('-inf')
+        min_size = float('inf')  
+        level = 0
+        for i in range(len(res)):
+            if res[i][0]>max_sum and res[i][1]<min_size:
+                max_sum = res[i][0]
+                level = i+1
+        return level
+           
+        #use bfs and construct level order with its sum and len
+        #iterate that lis and return the leve with max_sum and least size
+
+            
+
+
+        
