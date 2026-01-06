@@ -1,0 +1,48 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+from collections import deque
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+
+        queue = deque()
+        queue.append(root)
+        hashmap={}
+        while queue:
+            n = len(queue)
+            for i in range(n):
+                ele = queue.popleft()
+                if ele.left:
+                    hashmap[ele.left] = ele
+                    queue.append(ele.left)
+                if ele.right:
+                    hashmap[ele.right] = ele
+                    queue.append(ele.right)
+        queue = deque()
+        queue.append(target)
+        visited ={target}
+        distance = 0
+        while queue:
+            n = len(queue) 
+            if distance == k:
+                return [node.val for node in queue]
+            for i in range(n):
+                ele = queue.popleft()
+                if ele.left and ele.left not in visited:
+                    queue.append(ele.left)
+                    visited.add(ele.left)
+                if ele.right and ele.right not in visited:
+                    queue.append(ele.right)
+                    visited.add(ele.right)
+                if ele in hashmap and hashmap[ele] not in visited:
+                    queue.append(hashmap[ele])
+                    visited.add(hashmap[ele])
+            distance+=1
+        return []
+
+        
+
+        
