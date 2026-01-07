@@ -1,0 +1,33 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxProduct(self, root: Optional[TreeNode]) -> int:
+        #calculate total_sum
+        MOD = 10**9 + 7
+        def total_sum(node):
+            if not node:
+                return 0
+            return node.val+total_sum(node.left)+total_sum(node.right)
+        total = total_sum(root)
+        
+        product = 0
+        #cal max product sum
+        def postorder(node):
+            nonlocal product
+            if not node:
+                return 0
+            left = postorder(node.left)
+            right = postorder(node.right)
+            subtree_sum = node.val+left+right
+            product = max(product,subtree_sum*(total-subtree_sum))
+            return subtree_sum
+        postorder(root)
+        return product%MOD
+
+
+
+        
