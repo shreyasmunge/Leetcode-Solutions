@@ -1,0 +1,31 @@
+#User function Template for python3
+
+import sys
+from typing import List
+sys.setrecursionlimit(10**8)
+class Solution:
+    def countDistinctIslands(self, grid : List[List[int]]) -> int:
+        # code here
+        distint = set()
+        n = len(grid)
+        m = len(grid[0])
+        directions = [(0,1),(1,0),(-1,0),(0,-1)]
+        def dfs(i,j,i0,j0,shape):
+            grid[i][j] = 0
+            shape.append((i-i0,j-j0))
+            for k,l in directions:
+                r=k+i
+                c=j+l
+                if r>=n or r<0 or c>=m or c<0 or grid[r][c]==0 :
+                    continue
+                dfs(r,c,i0,j0,shape)
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j]!=0:
+                    shape = []
+                    dfs(i,j,i,j,shape) 
+                    distint.add(tuple(shape))
+        return len(distint)
+                    
+                    
+                
