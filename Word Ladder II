@@ -1,0 +1,59 @@
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        if endWord not in wordList:
+            return []
+        adj = collections.defaultdict(list)
+        wordList.append(beginWord)
+        n = len(beginWord)
+        #create adj list of patterns and word which can be formed from that pattern
+        for word in wordList:
+            for i in range(n):
+                pattern = word[:i]+'*'+word[i+1:]
+                adj[pattern].append(word)
+        visited = {beginWord}
+        queue = deque()
+        res = 1
+        parents = defaultdict(list)
+        found = False
+        queue.append(beginWord)
+        #do bfs
+        while queue and not found:
+            level_visited = set()
+
+            for _ in range(len(queue)):
+                word = queue.popleft()
+
+                for i in range(n):
+                    pattern = word[:i] + '*' + word[i+1:]
+                    for nei in adj[pattern]:
+                        if nei not in visited:
+                            if nei == endWord:
+                                found = True
+                            if nei not in level_visited:
+                                queue.append(nei)
+                                level_visited.add(nei)
+                            parents[nei].append(word)
+    
+            visited |= level_visited
+        res = []
+        path = [endWord]
+
+        def dfs(word):
+            if word == beginWord:
+                res.append(path[::-1])
+                return
+            for p in parents[word]:
+                path.append(p)
+                dfs(p)
+                path.pop()
+
+        if found:
+            dfs(endWord)
+        return res
+
+                
+
+
+
+                
+        
