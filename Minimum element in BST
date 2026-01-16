@@ -1,0 +1,21 @@
+"""
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+"""
+
+class Solution:
+    def minValue(self, root):
+        val = float('inf')
+        def find(node):
+            nonlocal val
+            if not node:
+                return 
+            val = min(val,node.data)
+            find(node.left)
+            find(node.right)
+            return val
+        return find(root)
+            
