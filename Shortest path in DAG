@@ -1,0 +1,34 @@
+#User function Template for python3
+
+from typing import List
+from collections import deque
+import collections
+
+class Solution:
+
+    def shortestPath(self, V: int, E: int,edges: List[List[int]]) -> List[int]:
+        adj = collections.defaultdict(list)
+        indegree = [0]*V
+        for edge in edges:
+            indegree[edge[1]]+=1
+            adj[edge[0]].append([edge[1],edge[2]])
+        distance = [float('inf')]*V
+        distance[0] = 0
+        queue = deque()
+        for i in range(V):
+            if indegree[i]==0:
+                queue.append(i)
+        while queue:
+            ele = queue.popleft()
+            for nei,wt in adj[ele]:
+                distance[nei] = min(distance[nei],distance[ele]+wt)
+                indegree[nei]-=1
+                if indegree[nei]==0:
+                    queue.append(nei)
+        for i in range(V):
+            if distance[i]==float('inf'):
+                distance[i] = -1
+        return distance
+        
+        
+        
