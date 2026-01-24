@@ -1,0 +1,27 @@
+from collections import deque
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        n=len(grid)
+        m = len(grid[0])
+        if grid[0][0] == 1 or grid[n-1][m-1] == 1:
+            return -1
+        queue = deque()
+        queue.append((0,0,1))
+        directions = ((0,1),(1,0),(-1,0),(0,-1),(1,1),(-1,-1),(-1,1),(1,-1))
+        visited = [[False]*m for _ in range(n)]
+        shortest_path = float('inf')
+        visited[0][0] = True
+        while queue:
+            i,j,path = queue.popleft()
+            if i==n-1 and j==m-1:
+                shortest_path = min(shortest_path,path)
+            for k,l in directions:
+                r=k+i
+                c = j+l
+                if r<0 or r>=n or c>=m or c<0 or grid[r][c]==1 or visited[r][c]==True:
+                    continue
+                queue.append((r,c,path+1))
+                visited[r][c]=True       
+        if shortest_path ==float('inf'):
+            return -1
+        return shortest_path
