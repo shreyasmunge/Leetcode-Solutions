@@ -1,0 +1,28 @@
+import heapq
+import collections
+class Solution:
+    def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        ways = [0]*n
+        mod = (10**9)+7
+        distance = [float('inf')]*n
+        adj = collections.defaultdict(list)
+        for s,d,t in roads:
+            adj[s].append((d,t))
+            adj[d].append((s, t)) 
+        queue = []
+        heapq.heappush(queue,(0,0))
+        distance[0]=0
+        ways[0]=1
+        while queue:
+            parent_time,parent_node = heapq.heappop(queue)
+            if parent_time>distance[parent_node]:
+                continue
+            
+            for child_node,child_time in adj[parent_node]:
+                if parent_time+child_time<distance[child_node]:
+                    heapq.heappush(queue,(parent_time+child_time,child_node))
+                    ways[child_node] = ways[parent_node]
+                    distance[child_node] = child_time+parent_time
+                elif parent_time+child_time==distance[child_node]:
+                    ways[child_node] = (ways[child_node]+ways[parent_node])%mod
+        return ways[n-1]%mod
