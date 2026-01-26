@@ -1,0 +1,26 @@
+import collections
+from collections import deque
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        adj = collections.defaultdict(list)
+        for flight in flights:
+            adj[flight[0]].append([flight[1],flight[2]])
+        queue = deque()
+        queue.append((0,src,0))
+        distance = [float('inf')]*n
+        distance[src] = 0
+        while queue:
+            stop,node,wt = queue.popleft()
+            if stop>k:
+                continue
+            for nei,nei_cost in adj[node]:
+                if nei_cost+wt<distance[nei]:
+                    distance[nei] = nei_cost+wt
+                    queue.append((stop+1,nei,distance[nei]))
+        if distance[dst]==float('inf'):
+            return -1
+        return distance[dst]
+
+
+        
+        
