@@ -1,0 +1,58 @@
+#User function Template for python3
+from typing import List
+
+class Solution:
+    def kruskalsMST(self, V: int, edges: List[List[int]]) -> int:
+        # code here
+        class DSU:
+            def __init__(self,n):
+                self.parent = list(range(n+1))
+                self.size = [1]*(n+1)
+                
+            def find(self,x):
+                if self.parent[x]!=x:
+                    self.parent[x] = self.find(self.parent[x])
+                return self.parent[x]
+            
+            def union(self,x,y):
+                ux = self.find(x)
+                uy = self.find(y)
+                if ux==uy:
+                    return False
+                elif self.size[ux]>self.size[uy]:
+                    self.parent[uy] = ux
+                    self.size[ux]+=self.size[uy]
+                else:
+                    self.parent[ux] = uy
+                    self.size[uy]+=self.size[ux]
+                    
+                return True
+        def kruskal(n,edges):
+            edges.sort(key=lambda x:x[2])
+            dsu = DSU(n)
+            min_wt = 0
+            mst = []
+            
+            for u,v,w in edges:
+                if dsu.union(u,v):
+                    min_wt+=w
+                    mst.append([u,v])
+                if len(mst)==n-1:
+                    break
+            return min_wt
+        return kruskal(V,edges)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
