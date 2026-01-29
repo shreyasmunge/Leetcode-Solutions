@@ -1,0 +1,21 @@
+import collections
+class Solution:
+    def makeConnected(self, n: int, connections: List[List[int]]) -> int:
+        if len(connections) < n - 1:
+            return -1
+        visited = [False]*(n)
+        adj = collections.defaultdict(list)
+        for u,v in connections:
+            adj[u].append(v)
+            adj[v].append(u)
+        def dfs(i):
+            visited[i]=True
+            for nei in adj[i]:
+                if visited[nei]==False:
+                    dfs(nei)
+        count = 0
+        for i in range(n):
+            if visited[i]==False:
+                dfs(i)
+                count+=1
+        return count-1
