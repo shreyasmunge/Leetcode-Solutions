@@ -1,0 +1,68 @@
+class Solution:
+    def largestIsland(self, grid: List[List[int]]) -> int:
+        class DSU:
+            def __init__(self,n):
+                self.parent = list(range(n))
+                self.size = [1]*n
+            
+            def find(self,x):
+                if self.parent[x]!=x:
+                    self.parent[x] = self.find(self.parent[x])
+                return self.parent[x]
+
+            def union(self,x,y):
+                ux = self.find(x)
+                uy = self.find(y)
+                if ux==uy:
+                    return False
+                elif self.size[ux]>self.size[uy]:
+                    self.parent[uy] = ux
+                    self.size[ux]+=self.size[uy]
+                else:
+                    self.parent[ux] = uy
+                    self.size[uy]+=self.size[ux]
+                return True
+        n = len(grid)
+        m = len(grid[0])
+        directions = [(1,0),(0,1),(-1,0),(0,-1)]
+        dsu = DSU(n*m)
+        max_area = 0
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j]==1 :
+                    for k,l in directions:
+                        r=k+i
+                        c=l+j
+                        if r>=n or r<0 or c>=m or c<0 or grid[r][c]==0:
+                            continue
+                        parent_node = (i*m)+j
+                        child_node = (r*m)+c
+                        dsu.union(parent_node,child_node)
+
+
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j]==0 :
+                    area = 0
+                    seen =set()
+                    for k,l in directions:
+                        r=k+i
+                        c=l+j
+                        if r>=n or r<0 or c>=m or c<0 or grid[r][c]==0:
+                            continue
+                        loc = (r*m)+c
+                        parent = dsu.find(loc)
+                        if parent not in seen:
+                            seen.add(parent)
+                            area+=dsu.size[parent]
+                 
+
+                    max_area = max(max_area,area+1)
+        return max_area if max_area!=0 else n*m
+
+
+        
+            
+
+
+        
