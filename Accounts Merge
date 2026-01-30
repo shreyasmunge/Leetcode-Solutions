@@ -1,0 +1,49 @@
+import collections
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        class DSU:
+            def __init__(self,n):
+                self.parent = list(range(n))
+                self.size = [1]*n
+            
+            def find(self,x):
+                if self.parent[x]!=x:
+                    self.parent[x] = self.find(self.parent[x])
+                return self.parent[x]
+
+            def union(self,x,y):
+                ux = self.find(x)
+                uy = self.find(y)
+                if ux==uy:
+                    return False
+                elif self.size[ux]>self.size[uy]:
+                    self.parent[uy] = ux
+                    self.size[ux]+=self.size[uy]
+                else:
+                    self.parent[ux] = uy
+                    self.size[uy]+=self.size[ux]
+                return True
+        n = len(accounts)
+        dsu = DSU(n)
+        freq = {}
+        for i in range(n):
+            for email in accounts[i][1:]:
+                if email not in freq:
+                    freq[email] = i
+                else:
+                    dsu.union(freq[email],i)
+        res = collections.defaultdict(list)
+        for key,val in freq.items():
+            root = dsu.find(val)
+            res[root].append(key)
+        ans = []
+        for key,val in res.items():
+            name = accounts[key][0]
+            ans.append([name]+sorted(val))
+            
+        
+        return ans
+
+
+
+
