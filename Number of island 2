@@ -1,0 +1,69 @@
+#User function Template for python3
+
+from typing import List
+class Solution:
+    def numOfIslands(self, rows: int, cols : int, operators : List[List[int]]) -> List[int]:
+        # code here
+        class DSU:
+            def __init__(self,n):
+                self.parent = list(range(rows*cols))
+                self.size = [1]*(rows*cols)
+                
+            def find(self,x):
+                if self.parent[x]!=x:
+                    self.parent[x] = self.find(self.parent[x])
+                return self.parent[x]
+            
+            def union(self,x,y):
+                ux = self.find(x)
+                uy = self.find(y)
+                if ux == uy:
+                    return False
+                elif self.size[ux]>self.size[uy]:
+                    self.parent[uy] = ux
+                    self.size[ux]+=self.size[uy]
+                else:
+                    self.parent[ux] = uy
+                    self.size[uy]+=self.size[ux]
+                return True
+                    
+        dsu = DSU(rows*cols)
+        visited = [[0]*cols for _ in range(rows)]
+        ans = []
+        directions = [(0,1),(1,0),(-1,0),(0,-1)]
+        count = 0
+        for i,j in operators:
+            if visited[i][j]==1:
+                ans.append(count)
+                continue
+            visited[i][j] = 1
+            count+=1
+            for k,l in directions:
+                r=k+i
+                c=j+l
+                if r>=rows or r<0 or c>=cols or c<0:
+                    continue
+                if visited[r][c]==1:
+                    node_num = i * cols + j
+                    adj_node = r * cols + c
+
+                    if dsu.find(node_num)!=dsu.find(adj_node):
+                        count-=1
+                        dsu.union(node_num,adj_node)
+                        
+            
+        
+            ans.append(count)
+        return ans
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                
