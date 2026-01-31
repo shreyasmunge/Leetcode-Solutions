@@ -1,0 +1,28 @@
+import heapq
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        queue = []
+        heapq.heappush(queue,(grid[0][0],0,0))
+        cur_max = 0
+        n = len(grid)
+        m = len(grid[0])
+        visited = [[False]*(m) for _ in range(n)]
+        directions = [(0,1),(1,0),(-1,0),(0,-1)]
+        visited[0][0] = True
+        while queue:
+            time,i,j = heapq.heappop(queue)
+            cur_max = max(cur_max,time)
+            if i==n-1 and j==m-1:
+                return cur_max
+            for k,l in directions:
+                r=k+i
+                c=l+ja
+                if r>=n or r<0 or c>=m or c<0 or visited[r][c]==True:
+                    continue
+                visited[r][c] = True
+                heapq.heappush(queue,(grid[r][c],r,c))
+
+        return cur_max
+
+        
+        
