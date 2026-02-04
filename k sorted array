@@ -1,0 +1,15 @@
+#User function Template for python3
+import heapq
+class Solution:
+    def isKSortedArray(self, arr, n, k): 
+        #code here.
+        queue = []
+        for i in range(n):
+            heapq.heappush(queue,(arr[i],i))
+        for i in range(n):
+            ele , pos = heapq.heappop(queue)
+            if abs(i-pos)<=k:
+                continue
+            return "No"
+        return "Yes"
+        
