@@ -1,0 +1,46 @@
+import collections
+import heapq
+class Twitter:
+
+    def __init__(self):
+        self.tweet = collections.defaultdict(list)
+        self.count = 0
+        self.following = collections.defaultdict(set)
+
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        self.count+=1
+        self.tweet[userId].append((tweetId,self.count))
+        
+
+    def getNewsFeed(self, userId: int) -> List[int]:
+        queue = []
+        res = []
+        self.following[userId].add(userId)
+        for following in self.following[userId]:
+            for tw,cn in self.tweet[following]:
+                heapq.heappush(queue,(-cn,tw))
+        for i in range(min(len(queue),10)):
+            c,t = heapq.heappop(queue)
+            res.append(t)
+        return res
+                
+
+
+        
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        self.following[followerId].add(followeeId)
+
+    def unfollow(self, followerId: int, followeeId: int) -> None: 
+        if followeeId in self.following[followerId]:
+            self.following[followerId].remove(followeeId)
+        
+        
+
+
+# Your Twitter object will be instantiated and called as such:
+# obj = Twitter()
+# obj.postTweet(userId,tweetId)
+# param_2 = obj.getNewsFeed(userId)
+# obj.follow(followerId,followeeId)
+# obj.unfollow(followerId,followeeId)
