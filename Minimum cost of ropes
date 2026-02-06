@@ -1,0 +1,19 @@
+import heapq
+class Solution:
+   def minCost(self, arr):
+        queue = []
+        cur_total=0
+        total = 0
+        for c in arr:
+            heapq.heappush(queue,c)
+        while len(queue)>1:
+            val1 = heapq.heappop(queue)
+            val2=0
+            if queue:
+                val2 = heapq.heappop(queue)
+            cur_total = val1+val2
+            heapq.heappush(queue,cur_total)
+            total+=cur_total
+        return total
+        
+    
