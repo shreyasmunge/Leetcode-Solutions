@@ -1,0 +1,32 @@
+import heapq
+import collections
+class Solution:
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        queue = []
+        freq =collections.defaultdict(int)
+        for h in hand:
+            freq[h]+=1
+        for key,val in freq.items():
+            heapq.heappush(queue,(key,val))
+        while queue:
+            rem = []
+            if len(queue)<groupSize:
+                return False
+            for i in range(groupSize):
+                key,val = heapq.heappop(queue)
+                if i==0:
+                    prev = key
+                if key!=prev+1 and i!=0:
+                    return False
+                prev = key
+                val-=1
+                if val!=0:
+                    rem.append((key,val))
+                
+            for key,val in rem:
+                heapq.heappush(queue,(key,val))
+        return True
+        
+
+        
+        
