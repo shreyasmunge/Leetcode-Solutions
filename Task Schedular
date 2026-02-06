@@ -1,0 +1,30 @@
+import collections,heapq
+from collections import deque
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        freq = collections.defaultdict(int)
+        queue = []
+        for task in tasks:
+            freq[task] +=1
+        for key,val in freq.items():
+            heapq.heappush(queue,-val)
+        time =0
+        while queue :
+            rem = []
+            cycle = n+1
+            while queue and cycle>0:
+                v = heapq.heappop(queue)
+                val = -v
+                if val>1:
+                    rem.append(val-1)
+                cycle-=1
+                time+=1
+            for c in rem:
+                heapq.heappush(queue,-c)
+            if not queue:
+                break
+            time+=cycle
+        return time
+
+            
+                
