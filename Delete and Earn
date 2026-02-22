@@ -1,0 +1,27 @@
+import collections
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        freq = collections.defaultdict(int)
+        for num in nums:
+            freq[num]+=1
+        lis = sorted(freq.keys())
+        n= len(lis)
+        dp = [0]*n
+        dp[0] = lis[0]*freq[lis[0]]
+        if n==1:
+            return dp[0]
+        if lis[1] == lis[0] + 1:
+            dp[1] = max(dp[0], lis[1] * freq[lis[1]])
+        else:
+            dp[1] = dp[0] + lis[1] * freq[lis[1]]
+        for i in range(2,n):
+            cur_val =lis[i]*freq[lis[i]]
+            if lis[i-1]!=lis[i]-1:
+                dp[i]=max(dp[i-1],dp[i-2])+cur_val
+            else:
+                dp[i]=max(dp[i-1],dp[i-2]+cur_val)
+        return dp[n-1]
+
+
+
+
