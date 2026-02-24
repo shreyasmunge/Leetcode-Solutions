@@ -1,0 +1,22 @@
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordlist=set(wordDict)
+        n=len(s)
+        memo = {}
+        def travel(i):
+            if i>=n:
+                return True
+            if i in memo:
+                return memo[i]
+            for word in wordlist:
+                j=len(word)
+                print( s[i:i+j] )
+                if s[i:i+j] in wordlist:
+                    if travel(i+j):
+                        memo[i]=True
+                        return True
+            memo[i]=False
+            return False
+        return travel(0)
+
+    
