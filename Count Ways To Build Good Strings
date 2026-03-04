@@ -1,0 +1,24 @@
+class Solution:
+    def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
+        MOD = 10**9 + 7
+        dp = {}
+
+        def dfs(length):
+            if length > high:
+                return 0
+            if length in dp:
+                return dp[length]
+
+            total = 0
+
+            # count current string if valid
+            if low <= length <= high:
+                total = 1
+
+            total += dfs(length + zero)
+            total += dfs(length + one)
+
+            dp[length] = total % MOD
+            return dp[length]
+
+        return dfs(0)
