@@ -1,0 +1,25 @@
+import heapq
+from collections import defaultdict
+class Solution:
+    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
+        n = len(queries)
+        output = [-1]*n
+        queue = []
+        hashmap = defaultdict(list)
+        for i, val in enumerate(queries):
+            hashmap[val].append(i)
+        queries.sort()
+        intervals.sort(key = lambda x :x[0])
+        j = 0
+        for i in range(n):
+            while j<len(intervals) and intervals[j][0]<=queries[i]:
+                heapq.heappush(queue,(intervals[j][1]-intervals[j][0]+1,intervals[j][1]))
+                j+=1
+            while queue and queue[0][1]<queries[i]:
+                heapq.heappop(queue)
+            if queue:
+                for idx in hashmap[queries[i]]:   
+                    output[idx] = queue[0][0]
+        return output
+
+            
