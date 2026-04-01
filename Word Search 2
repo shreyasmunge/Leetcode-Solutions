@@ -1,0 +1,43 @@
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        class TrieNode:
+            def __init__(self):
+                self.children = {}
+                self.word = None
+        root = TrieNode()
+        def insert(word):
+            node = root
+            for c in word:
+                if c not in node.children:
+                    node.children[c] = TrieNode()
+                node = node.children[c]
+            node.word = word
+        for word in words:
+            insert(word)
+
+        n,m = len(board),len(board[0])
+        res = []
+        directions = [(1,0),(0,1),(-1,0),(0,-1)]
+        def dfs(i,j,node):
+            ch = board[i][j]
+            if ch not in node.children:
+                return
+            next_node = node.children[ch]
+            if next_node.word:
+                res.append(next_node.word)
+                next_node.word = None  
+            board[i][j] = "#"
+            for k,l in directions:
+                r,c =i+k,j+l
+                if r<n and r>=0 and c<m and c>=0 and board[r][c]!='#' :
+                    dfs(r,c,next_node)
+
+            board[i][j] = ch
+
+
+        for i in range(n):
+            for j in range(m):
+                dfs(i,j,root)
+        return res
+
+        
