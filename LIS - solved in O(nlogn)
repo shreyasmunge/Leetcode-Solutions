@@ -1,0 +1,19 @@
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n=len(nums)
+        lis = []
+        for i in range(n):
+            if i==0 or lis[-1]<nums[i]:
+                lis.append(nums[i])
+            else:
+                l,r=0,len(lis)-1
+                while l<r:
+                    mid=(l+r)//2
+                    if lis[mid]>=nums[i]:
+                        r=mid
+                    else:
+                        l=mid+1
+                lis[l] = nums[i]
+        return len(lis)
+
+      
